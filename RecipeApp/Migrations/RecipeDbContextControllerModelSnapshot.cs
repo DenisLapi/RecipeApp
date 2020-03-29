@@ -77,7 +77,7 @@ namespace RecipeApp.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("PostId")
+                    b.Property<int?>("RecipeId")
                         .HasColumnType("int");
 
                     b.Property<int?>("UserId")
@@ -85,14 +85,14 @@ namespace RecipeApp.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("PostId");
+                    b.HasIndex("RecipeId");
 
                     b.HasIndex("UserId");
 
                     b.ToTable("Likes");
                 });
 
-            modelBuilder.Entity("RecipeApp.Models.Post", b =>
+            modelBuilder.Entity("RecipeApp.Models.Recipe", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -128,7 +128,7 @@ namespace RecipeApp.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Posts");
+                    b.ToTable("Recipes");
                 });
 
             modelBuilder.Entity("RecipeApp.Models.Role", b =>
@@ -174,34 +174,34 @@ namespace RecipeApp.Migrations
 
             modelBuilder.Entity("RecipeApp.Models.Like", b =>
                 {
-                    b.HasOne("RecipeApp.Models.Post", "Post")
+                    b.HasOne("RecipeApp.Models.Recipe", "Recipe")
                         .WithMany("Likes")
-                        .HasForeignKey("PostId");
+                        .HasForeignKey("RecipeId");
 
                     b.HasOne("RecipeApp.Models.User", "User")
                         .WithMany("Likes")
                         .HasForeignKey("UserId");
                 });
 
-            modelBuilder.Entity("RecipeApp.Models.Post", b =>
+            modelBuilder.Entity("RecipeApp.Models.Recipe", b =>
                 {
                     b.HasOne("RecipeApp.Models.Category", "Category")
-                        .WithMany("Post")
+                        .WithMany("Recipes")
                         .HasForeignKey("CategoryId");
 
                     b.HasOne("RecipeApp.Models.Complexity", "Complexity")
-                        .WithMany("Post")
+                        .WithMany("Recipes")
                         .HasForeignKey("ComplexityId");
 
                     b.HasOne("RecipeApp.Models.User", "User")
-                        .WithMany("Posts")
+                        .WithMany("Recipes")
                         .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("RecipeApp.Models.User", b =>
                 {
                     b.HasOne("RecipeApp.Models.Role", "Role")
-                        .WithMany("User")
+                        .WithMany("Users")
                         .HasForeignKey("RoleId");
                 });
 #pragma warning restore 612, 618

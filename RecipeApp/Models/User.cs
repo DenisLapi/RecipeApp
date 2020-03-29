@@ -12,7 +12,7 @@ namespace RecipeApp.Models
         public string Email { get; set; }
         public string Password { get; set; }
         public Role Role { get; set; }
-        public ICollection<Post> Posts { get; set; }
+        public ICollection<Recipe> Recipes { get; set; }
         public ICollection<Like> Likes { get; set; } 
     }
 }

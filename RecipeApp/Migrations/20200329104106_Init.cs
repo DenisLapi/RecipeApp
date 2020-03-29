@@ -84,7 +84,7 @@ namespace RecipeApp.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Posts",
+                name: "Recipes",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -99,21 +99,21 @@ namespace RecipeApp.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Posts", x => x.Id);
+                    table.PrimaryKey("PK_Recipes", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Posts_Categorie_CategoryId",
+                        name: "FK_Recipes_Categorie_CategoryId",
                         column: x => x.CategoryId,
                         principalTable: "Categorie",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Posts_Complexities_ComplexityId",
+                        name: "FK_Recipes_Complexities_ComplexityId",
                         column: x => x.ComplexityId,
                         principalTable: "Complexities",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Posts_Users_UserId",
+                        name: "FK_Recipes_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "Id",
@@ -127,15 +127,15 @@ namespace RecipeApp.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UserId = table.Column<int>(nullable: true),
-                    PostId = table.Column<int>(nullable: true)
+                    RecipeId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Likes", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Likes_Posts_PostId",
-                        column: x => x.PostId,
-                        principalTable: "Posts",
+                        name: "FK_Likes_Recipes_RecipeId",
+                        column: x => x.RecipeId,
+                        principalTable: "Recipes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
@@ -147,9 +147,9 @@ namespace RecipeApp.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Likes_PostId",
+                name: "IX_Likes_RecipeId",
                 table: "Likes",
-                column: "PostId");
+                column: "RecipeId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Likes_UserId",
@@ -157,18 +157,18 @@ namespace RecipeApp.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Posts_CategoryId",
-                table: "Posts",
+                name: "IX_Recipes_CategoryId",
+                table: "Recipes",
                 column: "CategoryId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Posts_ComplexityId",
-                table: "Posts",
+                name: "IX_Recipes_ComplexityId",
+                table: "Recipes",
                 column: "ComplexityId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Posts_UserId",
-                table: "Posts",
+                name: "IX_Recipes_UserId",
+                table: "Recipes",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
@@ -186,7 +186,7 @@ namespace RecipeApp.Migrations
                 name: "Likes");
 
             migrationBuilder.DropTable(
-                name: "Posts");
+                name: "Recipes");
 
             migrationBuilder.DropTable(
                 name: "Categorie");

@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace RecipeApp.Models
 {
-    public class Post
+    public class Recipe
     {
         public int Id { get; set; }
         public string Name { get; set; }
