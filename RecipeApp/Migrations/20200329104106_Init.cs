@@ -3,12 +3,12 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace RecipeApp.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class Init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Categories",
+                name: "Categorie",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -17,7 +17,7 @@ namespace RecipeApp.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Categories", x => x.Id);
+                    table.PrimaryKey("PK_Categorie", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -101,9 +101,9 @@ namespace RecipeApp.Migrations
                 {
                     table.PrimaryKey("PK_Recipes", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Recipes_Categories_CategoryId",
+                        name: "FK_Recipes_Categorie_CategoryId",
                         column: x => x.CategoryId,
-                        principalTable: "Categories",
+                        principalTable: "Categorie",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
@@ -189,7 +189,7 @@ namespace RecipeApp.Migrations
                 name: "Recipes");
 
             migrationBuilder.DropTable(
-                name: "Categories");
+                name: "Categorie");
 
             migrationBuilder.DropTable(
                 name: "Complexities");
