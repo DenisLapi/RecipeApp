@@ -22,7 +22,8 @@ namespace RecipeApp.Controllers
         // GET: Categories
         public async Task<IActionResult> Index()
         {
-            return View(await _categoryService.GetAll());
+            List<Category> _categories = await _categoryService.GetAll();
+            return View(_categories);
         }
 
         // GET: Categories/Details/5
