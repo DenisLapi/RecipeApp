@@ -11,7 +11,7 @@ namespace RecipeApp.Services
 {
     public class CategoryService : ICategoryService 
     {
-        private IRepositoryWrapper _repoWrapper;
+        private readonly IRepositoryWrapper _repoWrapper;
 
         public CategoryService(IRepositoryWrapper repoWrapper)
         {
