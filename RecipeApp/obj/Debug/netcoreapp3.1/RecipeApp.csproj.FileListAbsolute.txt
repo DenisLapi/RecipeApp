@@ -9,7 +9,6 @@ D:\Fakultet\Godina_3\Semestar_2\PAW\Backend\RecipeApp\RecipeApp\bin\Debug\netcor
 D:\Fakultet\Godina_3\Semestar_2\PAW\Backend\RecipeApp\RecipeApp\bin\Debug\netcoreapp3.1\RecipeApp.pdb
 D:\Fakultet\Godina_3\Semestar_2\PAW\Backend\RecipeApp\RecipeApp\bin\Debug\netcoreapp3.1\RecipeApp.Views.dll
 D:\Fakultet\Godina_3\Semestar_2\PAW\Backend\RecipeApp\RecipeApp\bin\Debug\netcoreapp3.1\RecipeApp.Views.pdb
-D:\Fakultet\Godina_3\Semestar_2\PAW\Backend\RecipeApp\RecipeApp\obj\Debug\netcoreapp3.1\RecipeApp.csprojAssemblyReference.cache
 D:\Fakultet\Godina_3\Semestar_2\PAW\Backend\RecipeApp\RecipeApp\obj\Debug\netcoreapp3.1\staticwebassets\RecipeApp.StaticWebAssets.Manifest.cache
 D:\Fakultet\Godina_3\Semestar_2\PAW\Backend\RecipeApp\RecipeApp\obj\Debug\netcoreapp3.1\staticwebassets\RecipeApp.StaticWebAssets.xml
 D:\Fakultet\Godina_3\Semestar_2\PAW\Backend\RecipeApp\RecipeApp\obj\Debug\netcoreapp3.1\RecipeApp.RazorAssemblyInfo.cache
@@ -167,3 +166,4 @@ D:\Fakultet\Godina_3\Semestar_2\PAW\Backend\RecipeApp\RecipeApp\obj\Debug\netcor
 D:\Fakultet\Godina_3\Semestar_2\PAW\Backend\RecipeApp\RecipeApp\obj\Debug\netcoreapp3.1\Razor\Views\Categories\Details.cshtml.g.cs
 D:\Fakultet\Godina_3\Semestar_2\PAW\Backend\RecipeApp\RecipeApp\obj\Debug\netcoreapp3.1\Razor\Views\Categories\Edit.cshtml.g.cs
 D:\Fakultet\Godina_3\Semestar_2\PAW\Backend\RecipeApp\RecipeApp\obj\Debug\netcoreapp3.1\Razor\Views\Categories\Index.cshtml.g.cs
+D:\Fakultet\Godina_3\Semestar_2\PAW\Backend\RecipeApp\RecipeApp\obj\Debug\netcoreapp3.1\RecipeApp.csprojAssemblyReference.cache
