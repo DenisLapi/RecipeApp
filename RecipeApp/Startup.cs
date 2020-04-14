@@ -9,7 +9,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using RecipeApp.Models;
-using RecipeApp.Services;
 
 namespace RecipeApp
 {
@@ -26,11 +25,8 @@ namespace RecipeApp
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-
             var connection = @"Server=(localdb)\mssqllocaldb;Database=RepiceAppDB;Trusted_Connection=True;ConnectRetryCount=0";
             services.AddDbContext<RecipeDbContextController>(options => options.UseSqlServer(connection));
-
-            services.AddTransient<ICategoryService, CategoryService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

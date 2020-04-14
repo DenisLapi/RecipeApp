@@ -6,30 +6,34 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using RecipeApp.Models;
-using RecipeApp.Services;
 
 namespace RecipeApp.Controllers
 {
     public class CategoriesController : Controller
     {
-        private readonly ICategoryService _categoryService;
+        private readonly RecipeDbContextController _context;
 
-        public CategoriesController(ICategoryService categoryService)
+        public CategoriesController(RecipeDbContextController context)
         {
-            _categoryService = categoryService;
+            _context = context;
         }
 
         // GET: Categories
         public async Task<IActionResult> Index()
         {
-            return View(await _categoryService.GetAll());
+            return View(await _context.Categorie.ToListAsync());
         }
 
         // GET: Categories/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            var category = await _categoryService.Details(id);
+            if (id == null)
+            {
+                return NotFound();
+            }
 
+            var category = await _context.Categorie
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (category == null)
             {
                 return NotFound();
@@ -51,31 +55,28 @@ namespace RecipeApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Name")] Category category)
         {
-            bool isCreated = false;
-
             if (ModelState.IsValid)
             {
-                isCreated = await _categoryService.Add(category);
-            }
-            
-            if (isCreated)
-            {
+                _context.Add(category);
+                await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-
             return View(category);
         }
 
         // GET: Categories/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            var category = await _categoryService.GetEdit(id);
-
-            if (category == null)
+            if (id == null)
             {
                 return NotFound();
             }
 
+            var category = await _context.Categorie.FindAsync(id);
+            if (category == null)
+            {
+                return NotFound();
+            }
             return View(category);
         }
 
@@ -93,13 +94,24 @@ namespace RecipeApp.Controllers
 
             if (ModelState.IsValid)
             {
-                bool isEdited = await _categoryService.Edit(category);
-                if (isEdited)
+                try
                 {
-                    return RedirectToAction(nameof(Index));
-                }   
+                    _context.Update(category);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!CategoryExists(category.Id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Index));
             }
-
             return View(category);
         }
 
@@ -111,8 +123,8 @@ namespace RecipeApp.Controllers
                 return NotFound();
             }
 
-            var category = await _categoryService.GetDelete(id);
-
+            var category = await _context.Categorie
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (category == null)
             {
                 return NotFound();
@@ -126,8 +138,15 @@ namespace RecipeApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            _ = await _categoryService.Delete(id);
+            var category = await _context.Categorie.FindAsync(id);
+            _context.Categorie.Remove(category);
+            await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
+        }
+
+        private bool CategoryExists(int id)
+        {
+            return _context.Categorie.Any(e => e.Id == id);
         }
     }
 }
