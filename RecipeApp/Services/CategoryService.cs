@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RecipeApp.Models;
+using RecipeApp.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,49 +11,49 @@ namespace RecipeApp.Services
 {
     public class CategoryService : ICategoryService 
     {
-        private readonly RecipeDbContextController _context;
+        private IRepositoryWrapper _repoWrapper;
 
-        public CategoryService(RecipeDbContextController context)
+        public CategoryService(IRepositoryWrapper repoWrapper)
         {
-            _context = context;
+            _repoWrapper = repoWrapper;
         }
 
-        public async Task<bool> Add(Category category)
+        public bool Add(Category category)
         {
-            _context.Add(category);
-            await _context.SaveChangesAsync();
+            _repoWrapper.Category.Create(category);
+            _repoWrapper.Save();
             return true;
         }
 
-        public async Task<Category> Details(int? id)
+        public Category Details(int? id)
         {
             if (id == null)
             {
                 return null;
             }
 
-            Category _category = await _context.Categories.FirstOrDefaultAsync(m => m.Id == id);
+            var _category = (Category) _repoWrapper.Category.FindByCondition(m => m.Id == id).ToList()[0];
             return _category;
         }
 
-        public async Task<Category> GetEdit(int? id)
+        public Category GetEdit(int? id)
         {
             if (id == null)
             {
                 return null;
             }
 
-            Category _category = await _context.Categories.FindAsync(id);
+            var _category = (Category) _repoWrapper.Category.FindByCondition(m => m.Id == id).ToList()[0];
 
             return _category;
         }
 
-        public async Task<bool> Edit(Category category)
+        public bool Edit(Category category)
         {
             try
             {
-                _context.Update(category);
-                await _context.SaveChangesAsync();
+                _repoWrapper.Category.Update(category);
+                _repoWrapper.Save();
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -68,28 +69,30 @@ namespace RecipeApp.Services
             return true;
         }
 
-        public async Task<Category> GetDelete(int? id)
+        public Category GetDelete(int? id)
         {
-            return await _context.Categories
-                .FirstOrDefaultAsync(m => m.Id == id);
+            return (Category) _repoWrapper.Category.FindByCondition(m => m.Id == id).ToList()[0];
         }
 
-        public async Task<bool> Delete(int id)
+        public bool Delete(int id)
         {
-            var category = await _context.Categories.FindAsync(id);
-            _context.Categories.Remove(category);
-            await _context.SaveChangesAsync();
+            var category = (Category) _repoWrapper.Category.FindByCondition(m => m.Id == id).ToList()[0];
+
+            _repoWrapper.Category.Delete(category);
+            _repoWrapper.Save();
+
             return true;
         }
 
         private bool CategoryExists(int id)
         {
-            return _context.Categories.Any(e => e.Id == id);
+            var categories = _repoWrapper.Category.FindByCondition(e => e.Id == id).ToList();
+            return categories.Count() > 0 ? true : false;
         }
 
-        public async Task<List<Category>> GetAll()
+        public List<Category> GetAll()
         {
-            return await _context.Categories.ToListAsync();
+            return _repoWrapper.Category.FindAll().ToList();
         }
     }
 }

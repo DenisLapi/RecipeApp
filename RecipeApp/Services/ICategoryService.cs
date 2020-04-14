@@ -9,18 +9,18 @@ namespace RecipeApp
 {
     public interface ICategoryService
     {
-        public Task<List<Category>> GetAll();
+        public List<Category> GetAll();
 
-        public Task<Category> Details(int? id);
+        public Category Details(int? id);
 
-        public Task<bool> Add(Category category);
+        public bool Add(Category category);
 
-        public Task<Category> GetEdit(int? id);
+        public Category GetEdit(int? id);
 
-        public Task<bool> Edit(Category category);
+        public bool Edit(Category category);
 
-        public Task<Category> GetDelete(int? id);
+        public Category GetDelete(int? id);
 
-        public Task<bool> Delete(int id);
+        public bool Delete(int id);
     }
 }

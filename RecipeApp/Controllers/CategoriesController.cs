@@ -20,16 +20,16 @@ namespace RecipeApp.Controllers
         }
 
         // GET: Categories
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            List<Category> _categories = await _categoryService.GetAll();
+            List<Category> _categories = _categoryService.GetAll();
             return View(_categories);
         }
 
         // GET: Categories/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            var category = await _categoryService.Details(id);
+            var category = _categoryService.Details(id);
 
             if (category == null)
             {
@@ -50,13 +50,13 @@ namespace RecipeApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name")] Category category)
+        public IActionResult Create([Bind("Id,Name")] Category category)
         {
             bool isCreated = false;
 
             if (ModelState.IsValid)
             {
-                isCreated = await _categoryService.Add(category);
+                isCreated =  _categoryService.Add(category);
             }
             
             if (isCreated)
@@ -68,9 +68,9 @@ namespace RecipeApp.Controllers
         }
 
         // GET: Categories/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public IActionResult Edit(int? id)
         {
-            var category = await _categoryService.GetEdit(id);
+            var category = _categoryService.GetEdit(id);
 
             if (category == null)
             {
@@ -85,7 +85,7 @@ namespace RecipeApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name")] Category category)
+        public IActionResult Edit(int id, [Bind("Id,Name")] Category category)
         {
             if (id != category.Id)
             {
@@ -94,7 +94,7 @@ namespace RecipeApp.Controllers
 
             if (ModelState.IsValid)
             {
-                bool isEdited = await _categoryService.Edit(category);
+                bool isEdited = _categoryService.Edit(category);
                 if (isEdited)
                 {
                     return RedirectToAction(nameof(Index));
@@ -105,14 +105,14 @@ namespace RecipeApp.Controllers
         }
 
         // GET: Categories/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public IActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var category = await _categoryService.GetDelete(id);
+            var category = _categoryService.GetDelete(id);
 
             if (category == null)
             {
@@ -125,9 +125,9 @@ namespace RecipeApp.Controllers
         // POST: Categories/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public IActionResult DeleteConfirmed(int id)
         {
-            _ = await _categoryService.Delete(id);
+            _categoryService.Delete(id);
             return RedirectToAction(nameof(Index));
         }
     }

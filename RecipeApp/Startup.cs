@@ -9,6 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using RecipeApp.Models;
+using RecipeApp.Repository;
 using RecipeApp.Services;
 
 namespace RecipeApp
@@ -25,12 +26,13 @@ namespace RecipeApp
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
+            services.AddTransient<ICategoryService, CategoryService>();
+
             services.AddControllersWithViews();
 
             var connection = @"Server=(localdb)\mssqllocaldb;Database=RepiceAppDB;Trusted_Connection=True;ConnectRetryCount=0";
             services.AddDbContext<RecipeDbContextController>(options => options.UseSqlServer(connection));
-
-            services.AddTransient<ICategoryService, CategoryService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
