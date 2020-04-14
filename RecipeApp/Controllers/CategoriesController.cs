@@ -39,6 +39,8 @@ namespace RecipeApp.Controllers
                 return NotFound();
             }
 
+            // var category = CategoryService.Details(id);
+
             return View(category);
         }
 
@@ -61,6 +63,9 @@ namespace RecipeApp.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+
+            // bool isCreated = CategoryService.Add(category);
+
             return View(category);
         }
 
@@ -73,10 +78,14 @@ namespace RecipeApp.Controllers
             }
 
             var category = await _context.Categorie.FindAsync(id);
+
+            // var category = CategoryService.Edit(id);
+
             if (category == null)
             {
                 return NotFound();
             }
+
             return View(category);
         }
 
@@ -112,6 +121,9 @@ namespace RecipeApp.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+
+            // var category = CategoryService.Edit(category);
+
             return View(category);
         }
 
@@ -125,6 +137,9 @@ namespace RecipeApp.Controllers
 
             var category = await _context.Categorie
                 .FirstOrDefaultAsync(m => m.Id == id);
+
+            // var category = CategoryService.getDelete(id);
+
             if (category == null)
             {
                 return NotFound();
@@ -141,6 +156,9 @@ namespace RecipeApp.Controllers
             var category = await _context.Categorie.FindAsync(id);
             _context.Categorie.Remove(category);
             await _context.SaveChangesAsync();
+
+            // CategoryService.Delete(category);
+
             return RedirectToAction(nameof(Index));
         }
 
