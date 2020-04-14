@@ -6,40 +6,34 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using RecipeApp.Models;
+using RecipeApp.Services;
 
 namespace RecipeApp.Controllers
 {
     public class CategoriesController : Controller
     {
-        private readonly RecipeDbContextController _context;
+        private readonly ICategoryService _categoryService;
 
-        public CategoriesController(RecipeDbContextController context)
+        public CategoriesController(ICategoryService categoryService)
         {
-            _context = context;
+            _categoryService = categoryService;
         }
 
         // GET: Categories
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Categorie.ToListAsync());
+            return View(await _categoryService.GetAll());
         }
 
         // GET: Categories/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            var category = await _categoryService.Details(id);
 
-            var category = await _context.Categorie
-                .FirstOrDefaultAsync(m => m.Id == id);
             if (category == null)
             {
                 return NotFound();
             }
-
-            // var category = CategoryService.Details(id);
 
             return View(category);
         }
@@ -57,14 +51,17 @@ namespace RecipeApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Name")] Category category)
         {
+            bool isCreated = false;
+
             if (ModelState.IsValid)
             {
-                _context.Add(category);
-                await _context.SaveChangesAsync();
+                isCreated = await _categoryService.Add(category);
+            }
+            
+            if (isCreated)
+            {
                 return RedirectToAction(nameof(Index));
             }
-
-            // bool isCreated = CategoryService.Add(category);
 
             return View(category);
         }
@@ -72,14 +69,7 @@ namespace RecipeApp.Controllers
         // GET: Categories/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var category = await _context.Categorie.FindAsync(id);
-
-            // var category = CategoryService.Edit(id);
+            var category = await _categoryService.GetEdit(id);
 
             if (category == null)
             {
@@ -103,26 +93,12 @@ namespace RecipeApp.Controllers
 
             if (ModelState.IsValid)
             {
-                try
+                bool isEdited = await _categoryService.Edit(category);
+                if (isEdited)
                 {
-                    _context.Update(category);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!CategoryExists(category.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
+                    return RedirectToAction(nameof(Index));
+                }   
             }
-
-            // var category = CategoryService.Edit(category);
 
             return View(category);
         }
@@ -135,10 +111,7 @@ namespace RecipeApp.Controllers
                 return NotFound();
             }
 
-            var category = await _context.Categorie
-                .FirstOrDefaultAsync(m => m.Id == id);
-
-            // var category = CategoryService.getDelete(id);
+            var category = await _categoryService.GetDelete(id);
 
             if (category == null)
             {
@@ -153,18 +126,8 @@ namespace RecipeApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var category = await _context.Categorie.FindAsync(id);
-            _context.Categorie.Remove(category);
-            await _context.SaveChangesAsync();
-
-            // CategoryService.Delete(category);
-
+            _ = await _categoryService.Delete(id);
             return RedirectToAction(nameof(Index));
-        }
-
-        private bool CategoryExists(int id)
-        {
-            return _context.Categorie.Any(e => e.Id == id);
         }
     }
 }

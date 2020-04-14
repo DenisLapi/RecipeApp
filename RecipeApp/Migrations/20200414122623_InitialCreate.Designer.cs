@@ -10,8 +10,8 @@ using RecipeApp.Models;
 namespace RecipeApp.Migrations
 {
     [DbContext(typeof(RecipeDbContextController))]
-    [Migration("20200329104106_Init")]
-    partial class Init
+    [Migration("20200414122623_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -33,7 +33,7 @@ namespace RecipeApp.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Categorie");
+                    b.ToTable("Categories");
                 });
 
             modelBuilder.Entity("RecipeApp.Models.Complexity", b =>

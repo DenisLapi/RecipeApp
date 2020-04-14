@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using RecipeApp.Models;
 using System;
 using System.Collections.Generic;
@@ -7,42 +8,88 @@ using System.Threading.Tasks;
 
 namespace RecipeApp.Services
 {
-    public class CategoryService : ICategoryService
+    public class CategoryService : ICategoryService 
     {
-        public IActionResult Create()
+        private readonly RecipeDbContextController _context;
+
+        public CategoryService(RecipeDbContextController context)
         {
-            return View(await _context.Categorie.ToListAsync());
+            _context = context;
         }
 
-        public Task<IActionResult> Create([Bind(new[] { "Id,Name" })] Category category)
+        public async Task<bool> Add(Category category)
         {
-            throw new NotImplementedException();
+            _context.Add(category);
+            await _context.SaveChangesAsync();
+            return true;
         }
 
-        public Task<IActionResult> Delete(int? id)
+        public async Task<Category> Details(int? id)
         {
-            throw new NotImplementedException();
+            if (id == null)
+            {
+                return null;
+            }
+
+            Category _category = await _context.Categories.FirstOrDefaultAsync(m => m.Id == id);
+            return _category;
         }
 
-        public Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<Category> GetEdit(int? id)
         {
-            throw new NotImplementedException();
+            if (id == null)
+            {
+                return null;
+            }
+
+            Category _category = await _context.Categories.FindAsync(id);
+
+            return _category;
         }
 
-        public Task<IActionResult> Details(int? id)
+        public async Task<bool> Edit(Category category)
         {
-            throw new NotImplementedException();
+            try
+            {
+                _context.Update(category);
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!CategoryExists(category.Id))
+                {
+                    return false;
+                }
+                else
+                {
+                    throw;
+                }
+            }
+            return true;
         }
 
-        public Task<IActionResult> Edit(int? id)
+        public async Task<Category> GetDelete(int? id)
         {
-            throw new NotImplementedException();
+            return await _context.Categories
+                .FirstOrDefaultAsync(m => m.Id == id);
         }
 
-        public Task<IActionResult> Edit(int id, [Bind(new[] { "Id,Name" })] Category category)
+        public async Task<bool> Delete(int id)
         {
-            throw new NotImplementedException();
+            var category = await _context.Categories.FindAsync(id);
+            _context.Categories.Remove(category);
+            await _context.SaveChangesAsync();
+            return true;
         }
 
+        private bool CategoryExists(int id)
+        {
+            return _context.Categories.Any(e => e.Id == id);
+        }
+
+        public async Task<List<Category>> GetAll()
+        {
+            return await _context.Categories.ToListAsync();
+        }
     }
 }

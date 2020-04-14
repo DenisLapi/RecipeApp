@@ -31,7 +31,7 @@ namespace RecipeApp.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Categorie");
+                    b.ToTable("Categories");
                 });
 
             modelBuilder.Entity("RecipeApp.Models.Complexity", b =>
