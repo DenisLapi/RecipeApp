@@ -28,6 +28,8 @@ namespace RecipeApp
         {
             services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
             services.AddTransient<ICategoryService, CategoryService>();
+            services.AddTransient<IComplexityService, ComplexityService>();
+            services.AddTransient<IContactMessageService, ContactMessageService>();
 
             services.AddControllersWithViews();
 

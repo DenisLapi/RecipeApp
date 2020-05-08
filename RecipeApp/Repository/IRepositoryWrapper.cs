@@ -8,6 +8,9 @@ namespace RecipeApp.Repository
     public interface IRepositoryWrapper
     {
         ICategoryRepository Category { get; }
+        IComplexityRepository Complexity { get; }
+        IContactMessageRepository ContactMessage { get; }
+
         void Save();
     }
 }

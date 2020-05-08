@@ -87,7 +87,7 @@ namespace RecipeApp.Services
         private bool CategoryExists(int id)
         {
             var categories = _repoWrapper.Category.FindByCondition(e => e.Id == id).ToList();
-            return categories.Count() > 0 ? true : false;
+            return categories.Any();
         }
 
         public List<Category> GetAll()

@@ -10,6 +10,8 @@ namespace RecipeApp.Repository
     {
         private RecipeDbContextController _repoContext;
         private ICategoryRepository _category;
+        private IComplexityRepository _complexity;
+        private IContactMessageRepository _contactMessage;
 
         public RepositoryWrapper(RecipeDbContextController repositoryContext)
         {
@@ -26,6 +28,32 @@ namespace RecipeApp.Repository
                 }
 
                 return _category;
+            }
+        }
+
+        public IComplexityRepository Complexity
+        {
+            get
+            {
+                if (_complexity == null)
+                {
+                    _complexity = new ComplexityRepository(_repoContext);
+                }
+
+                return _complexity;
+            }
+        }
+
+        public IContactMessageRepository ContactMessage
+        {
+            get
+            {
+                if (_contactMessage == null)
+                {
+                    _contactMessage = new ContactMessageRepository(_repoContext);
+                }
+
+                return _contactMessage;
             }
         }
 
