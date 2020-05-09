@@ -39,6 +39,31 @@ namespace RecipeApp
 
             services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<RecipeDbContext>();
 
+            services.Configure<IdentityOptions>(options =>
+            {
+                options.Password.RequireDigit = true;
+                options.Password.RequiredLength = 8;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = true;
+                options.Password.RequireLowercase = false;
+                options.Password.RequiredUniqueChars = 6;
+
+                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(30);
+                options.Lockout.MaxFailedAccessAttempts = 10;
+                options.Lockout.AllowedForNewUsers = true;
+
+                options.User.RequireUniqueEmail = true;
+            });
+
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.Cookie.HttpOnly = true;
+
+                options.LoginPath = "/Identity/Account/Login";
+                options.AccessDeniedPath = "/Identity/Account/AccessDenied";
+                options.SlidingExpiration = true;
+            });
+
             var connection = @"Server=(localdb)\mssqllocaldb;Database=RepiceAppDB;Trusted_Connection=True;ConnectRetryCount=0";
             services.AddDbContext<RecipeDbContext>(options => options.UseSqlServer(connection));
         }
