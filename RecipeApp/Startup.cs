@@ -30,6 +30,8 @@ namespace RecipeApp
             services.AddTransient<ICategoryService, CategoryService>();
             services.AddTransient<IComplexityService, ComplexityService>();
             services.AddTransient<IContactMessageService, ContactMessageService>();
+            services.AddTransient<ILikeService, LikeService>();
+            services.AddTransient<IRecipeService, RecipeService>();
 
             services.AddControllersWithViews();
 

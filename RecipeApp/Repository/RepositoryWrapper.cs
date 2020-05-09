@@ -12,6 +12,8 @@ namespace RecipeApp.Repository
         private ICategoryRepository _category;
         private IComplexityRepository _complexity;
         private IContactMessageRepository _contactMessage;
+        private ILikeRepository _like;
+        private IRecipeRepository _recipe;
 
         public RepositoryWrapper(RecipeDbContextController repositoryContext)
         {
@@ -54,6 +56,32 @@ namespace RecipeApp.Repository
                 }
 
                 return _contactMessage;
+            }
+        }
+
+        public ILikeRepository Like
+        {
+            get
+            {
+                if (_like == null)
+                {
+                    _like = new LikeRepository(_repoContext);
+                }
+
+                return _like;
+            }
+        }
+
+        public IRecipeRepository Recipe
+        {
+            get
+            {
+                if (_recipe == null)
+                {
+                    _recipe = new RecipeRepository(_repoContext);
+                }
+
+                return _recipe;
             }
         }
 
