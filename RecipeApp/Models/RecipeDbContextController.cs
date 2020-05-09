@@ -14,7 +14,6 @@ namespace RecipeApp.Models
 
         }
         public DbSet <User> Users { get; set; }
-        public DbSet <Role> Roles { get; set; }
         public DbSet <Recipe> Recipes { get; set; }
         public DbSet <Category> Categories { get; set; }
         public DbSet <Complexity> Complexities { get; set; }
