@@ -131,21 +131,6 @@ namespace RecipeApp.Migrations
                     b.ToTable("Recipes");
                 });
 
-            modelBuilder.Entity("RecipeApp.Models.Role", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Roles");
-                });
-
             modelBuilder.Entity("RecipeApp.Models.User", b =>
                 {
                     b.Property<int>("Id")
@@ -162,12 +147,7 @@ namespace RecipeApp.Migrations
                     b.Property<string>("Password")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("RoleId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("RoleId");
 
                     b.ToTable("Users");
                 });
@@ -196,13 +176,6 @@ namespace RecipeApp.Migrations
                     b.HasOne("RecipeApp.Models.User", "User")
                         .WithMany("Recipes")
                         .HasForeignKey("UserId");
-                });
-
-            modelBuilder.Entity("RecipeApp.Models.User", b =>
-                {
-                    b.HasOne("RecipeApp.Models.Role", "Role")
-                        .WithMany("Users")
-                        .HasForeignKey("RoleId");
                 });
 #pragma warning restore 612, 618
         }
