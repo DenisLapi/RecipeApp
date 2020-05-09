@@ -8,7 +8,7 @@ namespace RecipeApp.Repository
 {
     public class LikeRepository : RepositoryBase<Like>, ILikeRepository
     {
-        public LikeRepository(RecipeDbContextController repositoryContext) : base(repositoryContext)
+        public LikeRepository(RecipeDbContext repositoryContext) : base(repositoryContext)
         {
         }
     }

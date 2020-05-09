@@ -8,7 +8,7 @@ namespace RecipeApp.Repository
 {
     public class CategoryRepository : RepositoryBase<Category>, ICategoryRepository
     {
-        public CategoryRepository(RecipeDbContextController repositoryContext) : base(repositoryContext)
+        public CategoryRepository(RecipeDbContext repositoryContext) : base(repositoryContext)
         {
         }
     }

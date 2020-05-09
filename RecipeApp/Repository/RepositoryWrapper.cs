@@ -8,14 +8,14 @@ namespace RecipeApp.Repository
 {
     public class RepositoryWrapper : IRepositoryWrapper
     {
-        private RecipeDbContextController _repoContext;
+        private RecipeDbContext _repoContext;
         private ICategoryRepository _category;
         private IComplexityRepository _complexity;
         private IContactMessageRepository _contactMessage;
         private ILikeRepository _like;
         private IRecipeRepository _recipe;
 
-        public RepositoryWrapper(RecipeDbContextController repositoryContext)
+        public RepositoryWrapper(RecipeDbContext repositoryContext)
         {
             _repoContext = repositoryContext;
         }

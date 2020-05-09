@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -34,9 +35,12 @@ namespace RecipeApp
             services.AddTransient<IRecipeService, RecipeService>();
 
             services.AddControllersWithViews();
+            services.AddRazorPages();
+
+            services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<RecipeDbContext>();
 
             var connection = @"Server=(localdb)\mssqllocaldb;Database=RepiceAppDB;Trusted_Connection=True;ConnectRetryCount=0";
-            services.AddDbContext<RecipeDbContextController>(options => options.UseSqlServer(connection));
+            services.AddDbContext<RecipeDbContext>(options => options.UseSqlServer(connection));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -54,6 +58,7 @@ namespace RecipeApp
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
@@ -61,6 +66,8 @@ namespace RecipeApp
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+                endpoints.MapRazorPages();
             });
         }
     }

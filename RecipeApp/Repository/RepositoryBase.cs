@@ -10,9 +10,9 @@ namespace RecipeApp.Repository
 {
     public abstract class RepositoryBase<T> : IRepositoryBase<T> where T : class
     {
-        protected RecipeDbContextController RepositoryContext { get; set; }
+        protected RecipeDbContext RepositoryContext { get; set; }
 
-        public RepositoryBase(RecipeDbContextController repositoryContext)
+        public RepositoryBase(RecipeDbContext repositoryContext)
         {
             this.RepositoryContext = repositoryContext;
         }

@@ -8,7 +8,7 @@ namespace RecipeApp.Repository
 {
     public class ContactMessageRepository : RepositoryBase<ContactMessage>, IContactMessageRepository
     {
-        public ContactMessageRepository(RecipeDbContextController repositoryContext) : base(repositoryContext)
+        public ContactMessageRepository(RecipeDbContext repositoryContext) : base(repositoryContext)
         {
         }
     }

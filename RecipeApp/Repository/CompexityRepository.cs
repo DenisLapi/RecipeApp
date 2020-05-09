@@ -8,7 +8,7 @@ namespace RecipeApp.Repository
 {
     public class ComplexityRepository : RepositoryBase<Complexity>, IComplexityRepository
     {
-        public ComplexityRepository(RecipeDbContextController repositoryContext) : base(repositoryContext)
+        public ComplexityRepository(RecipeDbContext repositoryContext) : base(repositoryContext)
         {
         }
     }
