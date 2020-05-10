@@ -13,6 +13,7 @@ using RecipeApp.Models;
 using RecipeApp.Repository;
 using RecipeApp.Services;
 using RecipeApp.Services.Login;
+using RecipeApp.Services.Register;
 
 namespace RecipeApp
 {
@@ -35,6 +36,7 @@ namespace RecipeApp
             services.AddTransient<ILikeService, LikeService>();
             services.AddTransient<IRecipeService, RecipeService>();
             services.AddTransient<ILoginService, LoginService>();
+            services.AddTransient<IRegisterService, RegisterService>();
 
             services.AddControllersWithViews();
             services.AddRazorPages();

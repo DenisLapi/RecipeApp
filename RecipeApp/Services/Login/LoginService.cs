@@ -15,18 +15,18 @@ namespace RecipeApp.Services.Login
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly ILogger<LoginService> _logger;
 
+        public LoginService(SignInManager<IdentityUser> signInManager, ILogger<LoginService> logger)
+        {
+            _signInManager = signInManager;
+            _logger = logger;
+        }
+
         public IList<AuthenticationScheme> ExternalLogins { get; set; }
 
         public string ReturnUrl { get; set; }
 
         [TempData]
         public string ErrorMessage { get; set; }
-
-        public LoginService(SignInManager<IdentityUser> signInManager, ILogger<LoginService> logger)
-        {
-            _signInManager = signInManager;
-            _logger = logger;
-        }
 
         public async Task<string> ShowLogin(string returnUrl = null)
         {
