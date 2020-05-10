@@ -12,6 +12,7 @@ using Microsoft.Extensions.Hosting;
 using RecipeApp.Models;
 using RecipeApp.Repository;
 using RecipeApp.Services;
+using RecipeApp.Services.Login;
 
 namespace RecipeApp
 {
@@ -33,6 +34,7 @@ namespace RecipeApp
             services.AddTransient<IContactMessageService, ContactMessageService>();
             services.AddTransient<ILikeService, LikeService>();
             services.AddTransient<IRecipeService, RecipeService>();
+            services.AddTransient<ILoginService, LoginService>();
 
             services.AddControllersWithViews();
             services.AddRazorPages();
