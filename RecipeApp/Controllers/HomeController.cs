@@ -24,7 +24,6 @@ namespace RecipeApp.Controllers
             return View();
         }
 
-        [Authorize(Roles = "Administartor")]
         public IActionResult Privacy()
         {
             return View();
