@@ -19,18 +19,27 @@ namespace RecipeApp.Controllers
         }
 
         // GET: Categories
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
+<<<<<<< HEAD
             return View(await _context.Categorie.ToListAsync());
+=======
+            List<Category> _categories = _categoryService.GetAll();
+            return View(_categories);
+>>>>>>> feature/add-authentication-basics
         }
 
         // GET: Categories/Details/5
         public async Task<IActionResult> Details(int? id)
         {
+<<<<<<< HEAD
             if (id == null)
             {
                 return NotFound();
             }
+=======
+            var category = _categoryService.Details(id);
+>>>>>>> feature/add-authentication-basics
 
             var category = await _context.Categorie
                 .FirstOrDefaultAsync(m => m.Id == id);
@@ -53,24 +62,36 @@ namespace RecipeApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name")] Category category)
+        public IActionResult Create([Bind("Id,Name")] Category category)
         {
             if (ModelState.IsValid)
             {
+<<<<<<< HEAD
                 _context.Add(category);
                 await _context.SaveChangesAsync();
+=======
+                isCreated =  _categoryService.Add(category);
+            }
+            
+            if (isCreated)
+            {
+>>>>>>> feature/add-authentication-basics
                 return RedirectToAction(nameof(Index));
             }
             return View(category);
         }
 
         // GET: Categories/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public IActionResult Edit(int? id)
         {
+<<<<<<< HEAD
             if (id == null)
             {
                 return NotFound();
             }
+=======
+            var category = _categoryService.GetEdit(id);
+>>>>>>> feature/add-authentication-basics
 
             var category = await _context.Categorie.FindAsync(id);
             if (category == null)
@@ -85,7 +106,7 @@ namespace RecipeApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name")] Category category)
+        public IActionResult Edit(int id, [Bind("Id,Name")] Category category)
         {
             if (id != category.Id)
             {
@@ -94,7 +115,12 @@ namespace RecipeApp.Controllers
 
             if (ModelState.IsValid)
             {
+<<<<<<< HEAD
                 try
+=======
+                bool isEdited = _categoryService.Edit(category);
+                if (isEdited)
+>>>>>>> feature/add-authentication-basics
                 {
                     _context.Update(category);
                     await _context.SaveChangesAsync();
@@ -116,15 +142,20 @@ namespace RecipeApp.Controllers
         }
 
         // GET: Categories/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public IActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
+<<<<<<< HEAD
             var category = await _context.Categorie
                 .FirstOrDefaultAsync(m => m.Id == id);
+=======
+            var category = _categoryService.GetDelete(id);
+
+>>>>>>> feature/add-authentication-basics
             if (category == null)
             {
                 return NotFound();
@@ -136,11 +167,15 @@ namespace RecipeApp.Controllers
         // POST: Categories/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public IActionResult DeleteConfirmed(int id)
         {
+<<<<<<< HEAD
             var category = await _context.Categorie.FindAsync(id);
             _context.Categorie.Remove(category);
             await _context.SaveChangesAsync();
+=======
+            _categoryService.Delete(id);
+>>>>>>> feature/add-authentication-basics
             return RedirectToAction(nameof(Index));
         }
 

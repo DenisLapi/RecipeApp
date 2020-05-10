@@ -11,9 +11,9 @@ namespace RecipeApp.Controllers
 {
     public class RecipesController : Controller
     {
-        private readonly RecipeDbContextController _context;
+        private readonly RecipeDbContext _context;
 
-        public RecipesController(RecipeDbContextController context)
+        public RecipesController(RecipeDbContext context)
         {
             _context = context;
         }
