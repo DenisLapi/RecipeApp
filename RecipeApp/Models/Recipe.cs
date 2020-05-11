@@ -12,7 +12,6 @@ namespace RecipeApp.Models
         public string Content { get; set; }
         public string Duration { get; set; }
         public DateTime CreatedAt { get; set; }
-        public User User { get; set; }
         public Category Category { get; set; }
         public Complexity Complexity { get; set; }
         public ICollection <Like> Likes { get; set; }

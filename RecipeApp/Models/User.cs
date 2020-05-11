@@ -11,7 +11,6 @@ namespace RecipeApp.Models
         public string Name { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
-        public ICollection<Recipe> Recipes { get; set; }
         public ICollection<Like> Likes { get; set; } 
     }
 }
