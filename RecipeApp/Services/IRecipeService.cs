@@ -13,7 +13,7 @@ namespace RecipeApp
 
         public Recipe Details(int? id);
 
-        public bool Add(Recipe recipe);
+        public bool Add(Recipe recipe, string category, string complexity);
 
         public Recipe GetEdit(int? id);
 

@@ -1,5 +1,4 @@
-﻿@model RecipeApp.Models.Recipe
-
+﻿@model RecipeApp.ViewModels.RecipeCreateViewModel
 @{
     ViewData["Title"] = "Create";
 }
@@ -13,24 +12,42 @@
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
+                <label asp-for="@Model.recipe.Name" class="control-label"></label>
+                <input asp-for="@Model.recipe.Name" class="form-control" required/>
+                <span asp-validation-for="@Model.recipe.Name" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Content" class="control-label"></label>
-                <input asp-for="Content" class="form-control" />
-                <span asp-validation-for="Content" class="text-danger"></span>
+                <label asp-for="@Model.recipe.Content" class="control-label"></label>
+                <input asp-for="@Model.recipe.Content" class="form-control" required/>
+                <span asp-validation-for="@Model.recipe.Content" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Duration" class="control-label"></label>
-                <input asp-for="Duration" class="form-control" />
-                <span asp-validation-for="Duration" class="text-danger"></span>
+                <label asp-for="@Model.recipe.Duration" class="control-label"></label>
+                <input asp-for="@Model.recipe.Duration" class="form-control" required/>
+                <span asp-validation-for="@Model.recipe.Duration" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="CreatedAt" class="control-label"></label>
-                <input asp-for="CreatedAt" class="form-control" />
-                <span asp-validation-for="CreatedAt" class="text-danger"></span>
+                <label asp-for="@Model.recipe.CreatedAt" class="control-label"></label>
+                <input asp-for="@Model.recipe.CreatedAt" class="form-control" required/>
+                <span asp-validation-for="@Model.recipe.CreatedAt" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Category</label>
+                <select name="category" class="form-control" required>
+                    @for (var i = 0; i < @Model.categories.Count; i++)
+                    {
+                        <option value="@Model.categories[i].Id">@Model.categories[i].Name</option>
+                    }
+                </select>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Complexity</label>
+                <select name="complexity" class="form-control" required>
+                    @for (var i = 0; i < @Model.complexities.Count; i++)
+                    {
+                        <option value="@Model.complexities[i].Id">@Model.complexities[i].Name</option>
+                    }
+                </select>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />

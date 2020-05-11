@@ -12,14 +12,27 @@ namespace RecipeApp.Services
     public class RecipeService : IRecipeService
     {
         private readonly IRepositoryWrapper _repoWrapper;
+        private readonly ICategoryService _categoryService;
+        private readonly IComplexityService _complexityService;
 
-        public RecipeService(IRepositoryWrapper repoWrapper)
+        public RecipeService(IRepositoryWrapper repoWrapper, ICategoryService categoryService, IComplexityService complexityService)
         {
             _repoWrapper = repoWrapper;
+            _categoryService = categoryService;
+            _complexityService = complexityService;
         }
 
-        public bool Add(Recipe recipe)
+        public bool Add(Recipe recipe, string category, string complexity)
         {
+            int complexityID = Int32.Parse(complexity);
+            int categoryID = Int32.Parse(category);
+
+            Complexity _complexity = _complexityService.Details(complexityID);
+            Category _category = _categoryService.Details(categoryID);
+
+            recipe.Complexity = _complexity;
+            recipe.Category = _category;
+
             _repoWrapper.Recipe.Create(recipe);
             _repoWrapper.Save();
             return true;
