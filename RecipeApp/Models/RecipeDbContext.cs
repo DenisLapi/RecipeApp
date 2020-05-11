@@ -20,5 +20,25 @@ namespace RecipeApp.Models
         public DbSet <Complexity> Complexities { get; set; }
         public DbSet <Like> Likes { get; set; }
         public DbSet <ContactMessage> ContactMessages { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+
+            builder.Entity<IdentityRole>().HasData(
+                new IdentityRole
+                {
+                    Id = "1",
+                    Name = "User",
+                    NormalizedName = "User"
+                },
+                new IdentityRole
+                {
+                    Id = "2",
+                    Name = "Administrator",
+                    NormalizedName = "Admin"
+                }
+            );
+        }
     }
 }
