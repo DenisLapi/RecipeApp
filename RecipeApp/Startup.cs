@@ -14,6 +14,7 @@ using RecipeApp.Repository;
 using RecipeApp.Services;
 using RecipeApp.Services.Login;
 using RecipeApp.Services.Register;
+using RecipeApp.Services.User;
 
 namespace RecipeApp
 {
@@ -37,6 +38,7 @@ namespace RecipeApp
             services.AddTransient<IRecipeService, RecipeService>();
             services.AddTransient<ILoginService, LoginService>();
             services.AddTransient<IRegisterService, RegisterService>();
+            services.AddTransient<IUserService, UserService>();
 
             services.AddControllersWithViews();
             services.AddRazorPages();

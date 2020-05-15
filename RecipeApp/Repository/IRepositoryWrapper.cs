@@ -12,6 +12,8 @@ namespace RecipeApp.Repository
         IContactMessageRepository ContactMessage { get; }
         ILikeRepository Like { get; }
         IRecipeRepository Recipe { get; }
+        IUserRepository User { get; }
+
         void Save();
     }
 }

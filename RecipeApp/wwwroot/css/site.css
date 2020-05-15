@@ -91,3 +91,16 @@ body {
     background-size: cover;
     background-position: center;
 }
+
+.avatar {
+    border-radius: 50%;
+    overflow: hidden;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.avatar--small {
+    height: 30px;
+    width: 30px;
+}

@@ -14,6 +14,7 @@ namespace RecipeApp.Repository
         private IContactMessageRepository _contactMessage;
         private ILikeRepository _like;
         private IRecipeRepository _recipe;
+        private IUserRepository _user;
 
         public RepositoryWrapper(RecipeDbContext repositoryContext)
         {
@@ -82,6 +83,19 @@ namespace RecipeApp.Repository
                 }
 
                 return _recipe;
+            }
+        }
+
+        public IUserRepository User
+        {
+            get
+            {
+                if (_user == null)
+                {
+                    _user = new UserRepository(_repoContext);
+                }
+
+                return _user;
             }
         }
 
