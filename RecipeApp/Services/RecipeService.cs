@@ -80,7 +80,7 @@ namespace RecipeApp.Services
 
         public Recipe GetDelete(int? id)
         {
-            return (Recipe) _repoWrapper.Recipe.FindByCondition(m => m.Id == id).ToList()[0];
+            return (Recipe) _repoWrapper.Recipe.FindByCondition(m => m.Id == id).Include(x => x.Category).Include(x => x.Complexity).ToList()[0];
         }
 
         public bool Delete(int id)

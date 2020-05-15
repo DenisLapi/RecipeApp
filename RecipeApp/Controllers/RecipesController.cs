@@ -84,14 +84,20 @@ namespace RecipeApp.Controllers
         // GET: Recipes/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            var recipe = _recipeService.GetEdit(id);
 
-            if (recipe == null)
+            RecipeCreateViewModel recipeCreateViewModel = new RecipeCreateViewModel
+            {
+                categories = _categoryService.GetAll(),
+                complexities = _complexityService.GetAll(),
+                recipe = _recipeService.GetEdit(id)
+            };
+
+            if (recipeCreateViewModel == null)
             {
                 return NotFound();
             }
 
-            return View(recipe);
+            return View(recipeCreateViewModel);
         }
 
         // POST: Recipes/Edit/5
@@ -99,16 +105,18 @@ namespace RecipeApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Content,Duration,CreatedAt")] Recipe recipe)
+        public async Task<IActionResult> Edit(Recipe recipe, string category, string complexity)
         {
-            if (id != recipe.Id)
-            {
-                return NotFound();
-            }
-
             if (ModelState.IsValid)
             {
+                var categoryId = Int32.Parse(category);
+                var complexityId = Int32.Parse(complexity);
+
+                recipe.CategoryId = categoryId;
+                recipe.ComplexityId = complexityId;
+
                 bool isEdited = _recipeService.Edit(recipe);
+
                 if (isEdited)
                 {
                     return RedirectToAction(nameof(Index));

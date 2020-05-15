@@ -104,3 +104,22 @@ body {
     height: 30px;
     width: 30px;
 }
+
+.page__cover-image {
+    height: 400px;
+    width: 100%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.recipe-details .bx {
+    color: #bdc4ca;
+    font-size: 25px;
+    margin-right: 5px;
+}
+
+.recipe-details .text {
+    font-size: 15px;
+    color: #515561;
+}
