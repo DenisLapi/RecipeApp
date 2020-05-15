@@ -33,6 +33,8 @@ namespace RecipeApp.Services
             }
 
             var _complexity = (Complexity) _repoWrapper.Complexity.FindByCondition(m => m.Id == id).ToList()[0];
+            _complexity.Recipes = _repoWrapper.Recipe.FindByCondition(m => m.Complexity.Id == _complexity.Id).ToList();
+
             return _complexity;
         }
 

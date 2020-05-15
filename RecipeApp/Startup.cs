@@ -41,7 +41,7 @@ namespace RecipeApp
             services.AddControllersWithViews();
             services.AddRazorPages();
 
-            services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<RecipeDbContext>();
+            services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<RecipeDbContext>();
 
             services.Configure<IdentityOptions>(options =>
             {

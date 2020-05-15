@@ -13,22 +13,27 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="@Model.recipe.Name" class="control-label"></label>
-                <input asp-for="@Model.recipe.Name" class="form-control" required/>
+                <input asp-for="@Model.recipe.Name" class="form-control" required />
                 <span asp-validation-for="@Model.recipe.Name" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="@Model.recipe.Content" class="control-label"></label>
-                <input asp-for="@Model.recipe.Content" class="form-control" required/>
+                <input asp-for="@Model.recipe.Content" class="form-control" required />
                 <span asp-validation-for="@Model.recipe.Content" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="@Model.recipe.Duration" class="control-label"></label>
-                <input asp-for="@Model.recipe.Duration" class="form-control" required/>
+                <input asp-for="@Model.recipe.Duration" class="form-control" required />
                 <span asp-validation-for="@Model.recipe.Duration" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="@Model.recipe.Photo" class="control-label"></label>
+                <input asp-for="@Model.recipe.Photo" class="form-control" required />
+                <span asp-validation-for="@Model.recipe.Photo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <label asp-for="@Model.recipe.CreatedAt" class="control-label"></label>
-                <input asp-for="@Model.recipe.CreatedAt" class="form-control" required/>
+                <input asp-for="@Model.recipe.CreatedAt" class="form-control" required />
                 <span asp-validation-for="@Model.recipe.CreatedAt" class="text-danger"></span>
             </div>
             <div class="form-group">

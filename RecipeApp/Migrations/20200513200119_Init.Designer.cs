@@ -10,8 +10,8 @@ using RecipeApp.Models;
 namespace RecipeApp.Migrations
 {
     [DbContext(typeof(RecipeDbContext))]
-    [Migration("20200509171905_AuthInitMigration")]
-    partial class AuthInitMigration
+    [Migration("20200513200119_Init")]
+    partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -46,6 +46,22 @@ namespace RecipeApp.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "1",
+                            ConcurrencyStamp = "e9a1ca0a-c70a-43aa-83de-389f5090ad9b",
+                            Name = "User",
+                            NormalizedName = "User"
+                        },
+                        new
+                        {
+                            Id = "2",
+                            ConcurrencyStamp = "9f7a65d6-11e7-4924-b02b-44bdc9129238",
+                            Name = "Administrator",
+                            NormalizedName = "Admin"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -82,6 +98,10 @@ namespace RecipeApp.Migrations
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
@@ -135,6 +155,8 @@ namespace RecipeApp.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityUser");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -275,17 +297,20 @@ namespace RecipeApp.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("RecipeId")
+                    b.Property<int>("RecipeId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("UserId")
+                    b.Property<int>("UserId")
                         .HasColumnType("int");
+
+                    b.Property<string>("UserId1")
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("RecipeId");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("UserId1");
 
                     b.ToTable("Likes");
                 });
@@ -297,10 +322,10 @@ namespace RecipeApp.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("CategoryId")
+                    b.Property<int>("CategoryId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("ComplexityId")
+                    b.Property<int>("ComplexityId")
                         .HasColumnType("int");
 
                     b.Property<string>("Content")
@@ -315,8 +340,8 @@ namespace RecipeApp.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("UserId")
-                        .HasColumnType("int");
+                    b.Property<string>("Photo")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -324,30 +349,17 @@ namespace RecipeApp.Migrations
 
                     b.HasIndex("ComplexityId");
 
-                    b.HasIndex("UserId");
-
                     b.ToTable("Recipes");
                 });
 
-            modelBuilder.Entity("RecipeApp.Models.User", b =>
+            modelBuilder.Entity("RecipeApp.Models.ApplicationUser", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
 
-                    b.Property<string>("Email")
+                    b.Property<string>("Photo")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Password")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("User");
+                    b.HasDiscriminator().HasValue("ApplicationUser");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -405,26 +417,28 @@ namespace RecipeApp.Migrations
                 {
                     b.HasOne("RecipeApp.Models.Recipe", "Recipe")
                         .WithMany("Likes")
-                        .HasForeignKey("RecipeId");
+                        .HasForeignKey("RecipeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.HasOne("RecipeApp.Models.User", "User")
+                    b.HasOne("RecipeApp.Models.ApplicationUser", "User")
                         .WithMany("Likes")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserId1");
                 });
 
             modelBuilder.Entity("RecipeApp.Models.Recipe", b =>
                 {
                     b.HasOne("RecipeApp.Models.Category", "Category")
                         .WithMany("Recipes")
-                        .HasForeignKey("CategoryId");
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("RecipeApp.Models.Complexity", "Complexity")
                         .WithMany("Recipes")
-                        .HasForeignKey("ComplexityId");
-
-                    b.HasOne("RecipeApp.Models.User", "User")
-                        .WithMany("Recipes")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("ComplexityId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

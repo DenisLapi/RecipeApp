@@ -33,6 +33,8 @@ namespace RecipeApp.Services
             }
 
             var _category = (Category) _repoWrapper.Category.FindByCondition(m => m.Id == id).ToList()[0];
+            _category.Recipes = _repoWrapper.Recipe.FindByCondition(m => m.Category.Id == _category.Id).ToList();
+
             return _category;
         }
 

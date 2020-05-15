@@ -7,15 +7,16 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using RecipeApp.Models;
 
 namespace RecipeApp.Services.Login
 {
     public class LoginService : PageModel, ILoginService
     {
-        private readonly SignInManager<IdentityUser> _signInManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly ILogger<LoginService> _logger;
 
-        public LoginService(SignInManager<IdentityUser> signInManager, ILogger<LoginService> logger)
+        public LoginService(SignInManager<ApplicationUser> signInManager, ILogger<LoginService> logger)
         {
             _signInManager = signInManager;
             _logger = logger;

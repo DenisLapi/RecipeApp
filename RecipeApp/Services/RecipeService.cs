@@ -26,13 +26,8 @@ namespace RecipeApp.Services
         {
             int complexityID = Int32.Parse(complexity);
             int categoryID = Int32.Parse(category);
-
-            Complexity _complexity = _complexityService.Details(complexityID);
-            Category _category = _categoryService.Details(categoryID);
-
-            recipe.Complexity = _complexity;
-            recipe.Category = _category;
-
+            recipe.ComplexityId = complexityID;
+            recipe.CategoryId = categoryID;
             _repoWrapper.Recipe.Create(recipe);
             _repoWrapper.Save();
             return true;
@@ -45,9 +40,10 @@ namespace RecipeApp.Services
                 return null;
             }
 
-            var _recipe = (Recipe) _repoWrapper.Recipe.FindByCondition(m => m.Id == id).ToList()[0];
+            var _recipe = (Recipe) _repoWrapper.Recipe.FindByCondition(m => m.Id == id).Include(x => x.Category).Include(x => x.Complexity).ToList()[0];
+
             return _recipe;
-        }
+        } 
 
         public Recipe GetEdit(int? id)
         {
