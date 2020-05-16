@@ -8,16 +8,16 @@
 
 @if (this.User.IsInRole("Administrator"))
 {
-    <p>
+    <p class="mt-4">
         <a class="btn btn-outline-primary" asp-action="Create">Create New</a>
     </p>
 }
 
-<div class="row">
+<div class="row mt-4">
     @foreach (var item in Model)
     {
         <div class="col-lg-4 col-md-6">
-            <div class="card rounded-0 mb-3 w-100" style="width: 18rem;">
+            <div class="card rounded mb-3 w-100" style="width: 18rem;">
                 <div class="card-background-image-wrapper" style="background-image: url('@item.Photo')"></div>
                 <div class="card-body">
                     <h5 class="card-title">@item.Name</h5>
