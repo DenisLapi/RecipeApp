@@ -13,17 +13,21 @@ namespace RecipeApp.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly IRecipeService _recipeService;
+        private const int MAX_RECIPES = 3;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IRecipeService recipeService)
         {
             _logger = logger;
+            _recipeService = recipeService;
         }
 
         public IActionResult Index()
         {
+            ViewBag.recipes = _recipeService.GetSome(MAX_RECIPES);
             return View();
         }
-
+        
         public IActionResult Privacy()
         {
             return View();

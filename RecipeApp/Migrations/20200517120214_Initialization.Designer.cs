@@ -10,8 +10,8 @@ using RecipeApp.Models;
 namespace RecipeApp.Migrations
 {
     [DbContext(typeof(RecipeDbContext))]
-    [Migration("20200513200119_Init")]
-    partial class Init
+    [Migration("20200517120214_Initialization")]
+    partial class Initialization
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -51,14 +51,14 @@ namespace RecipeApp.Migrations
                         new
                         {
                             Id = "1",
-                            ConcurrencyStamp = "e9a1ca0a-c70a-43aa-83de-389f5090ad9b",
+                            ConcurrencyStamp = "6cf275bd-81a4-4da6-adc8-09e0697fff0f",
                             Name = "User",
                             NormalizedName = "User"
                         },
                         new
                         {
                             Id = "2",
-                            ConcurrencyStamp = "9f7a65d6-11e7-4924-b02b-44bdc9129238",
+                            ConcurrencyStamp = "37799117-4974-48a2-abdf-cf83e0b32eec",
                             Name = "Administrator",
                             NormalizedName = "Admin"
                         });
@@ -252,6 +252,18 @@ namespace RecipeApp.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Categories");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Food"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Lunch"
+                        });
                 });
 
             modelBuilder.Entity("RecipeApp.Models.Complexity", b =>
@@ -267,6 +279,18 @@ namespace RecipeApp.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Complexities");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Easy"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Hard"
+                        });
                 });
 
             modelBuilder.Entity("RecipeApp.Models.ContactMessage", b =>
@@ -350,6 +374,41 @@ namespace RecipeApp.Migrations
                     b.HasIndex("ComplexityId");
 
                     b.ToTable("Recipes");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CategoryId = 1,
+                            ComplexityId = 1,
+                            Content = "This is random content",
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Duration = "50",
+                            Name = "Curry Salmon with Mango",
+                            Photo = "https://images.media-allrecipes.com/userphotos/560x315/3286508.jpg"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CategoryId = 1,
+                            ComplexityId = 1,
+                            Content = "This is random content",
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Duration = "30",
+                            Name = "World's Best Lasagna",
+                            Photo = "https://imagesvc.meredithcorp.io/v3/mm/image?url=https%3A%2F%2Fimages.media-allrecipes.com%2Fuserphotos%2F3359675.jpg"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CategoryId = 1,
+                            ComplexityId = 1,
+                            Content = "This is random content",
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Duration = "40",
+                            Name = "Pantry Chicken Casserole",
+                            Photo = "https://images.media-allrecipes.com/userphotos/560x315/7847380.jpg"
+                        });
                 });
 
             modelBuilder.Entity("RecipeApp.Models.ApplicationUser", b =>

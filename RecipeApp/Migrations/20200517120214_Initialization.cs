@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace RecipeApp.Migrations
 {
-    public partial class Init : Migration
+    public partial class Initialization : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -256,12 +256,44 @@ namespace RecipeApp.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "1", "e9a1ca0a-c70a-43aa-83de-389f5090ad9b", "User", "User" });
+                values: new object[,]
+                {
+                    { "1", "6cf275bd-81a4-4da6-adc8-09e0697fff0f", "User", "User" },
+                    { "2", "37799117-4974-48a2-abdf-cf83e0b32eec", "Administrator", "Admin" }
+                });
 
             migrationBuilder.InsertData(
-                table: "AspNetRoles",
-                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "2", "9f7a65d6-11e7-4924-b02b-44bdc9129238", "Administrator", "Admin" });
+                table: "Categories",
+                columns: new[] { "Id", "Name" },
+                values: new object[,]
+                {
+                    { 1, "Food" },
+                    { 2, "Lunch" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Complexities",
+                columns: new[] { "Id", "Name" },
+                values: new object[,]
+                {
+                    { 1, "Easy" },
+                    { 2, "Hard" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Recipes",
+                columns: new[] { "Id", "CategoryId", "ComplexityId", "Content", "CreatedAt", "Duration", "Name", "Photo" },
+                values: new object[] { 1, 1, 1, "This is random content", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "50", "Curry Salmon with Mango", "https://images.media-allrecipes.com/userphotos/560x315/3286508.jpg" });
+
+            migrationBuilder.InsertData(
+                table: "Recipes",
+                columns: new[] { "Id", "CategoryId", "ComplexityId", "Content", "CreatedAt", "Duration", "Name", "Photo" },
+                values: new object[] { 2, 1, 1, "This is random content", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "30", "World's Best Lasagna", "https://imagesvc.meredithcorp.io/v3/mm/image?url=https%3A%2F%2Fimages.media-allrecipes.com%2Fuserphotos%2F3359675.jpg" });
+
+            migrationBuilder.InsertData(
+                table: "Recipes",
+                columns: new[] { "Id", "CategoryId", "ComplexityId", "Content", "CreatedAt", "Duration", "Name", "Photo" },
+                values: new object[] { 3, 1, 1, "This is random content", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "40", "Pantry Chicken Casserole", "https://images.media-allrecipes.com/userphotos/560x315/7847380.jpg" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",

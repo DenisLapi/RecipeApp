@@ -22,5 +22,7 @@ namespace RecipeApp
         public Recipe GetDelete(int? id);
 
         public bool Delete(int id);
+
+        public List<Recipe> GetSome(int amount);
     }
 }

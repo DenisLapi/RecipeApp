@@ -25,6 +25,7 @@ namespace RecipeApp.Models
         {
             base.OnModelCreating(builder);
 
+            // Role seeds
             builder.Entity<IdentityRole>().HasData(
                 new IdentityRole
                 {
@@ -39,6 +40,72 @@ namespace RecipeApp.Models
                     NormalizedName = "Admin"
                 }
             );
+
+            // Category seeds
+            builder.Entity<Category>().HasData(
+                new Category
+                {
+                    Id = 1,
+                    Name = "Food"
+                },
+                new Category
+                {
+                    Id = 2,
+                    Name = "Lunch"
+                }
+            );
+
+            // Complexity seeds
+            builder.Entity<Complexity>().HasData(
+                new Complexity
+                {
+                    Id = 1,
+                    Name = "Easy"
+                },
+                new Complexity
+                {
+                    Id = 2,
+                    Name = "Hard"
+                }
+            );
+
+            // Recipe seeds
+            builder.Entity<Recipe>().HasData(
+                new Recipe
+                {
+                    Id = 1,
+                    Name = "Curry Salmon with Mango",
+                    Content = "This is random content",
+                    Duration = "50",
+                    Photo = "https://images.media-allrecipes.com/userphotos/560x315/3286508.jpg",
+                    CreatedAt = new DateTime(),
+                    CategoryId = 1,
+                    ComplexityId = 1
+                },
+                new Recipe
+                {
+                    Id = 2,
+                    Name = "World's Best Lasagna",
+                    Content = "This is random content",
+                    Duration = "30",
+                    Photo = "https://imagesvc.meredithcorp.io/v3/mm/image?url=https%3A%2F%2Fimages.media-allrecipes.com%2Fuserphotos%2F3359675.jpg",
+                    CreatedAt = new DateTime(),
+                    CategoryId = 1,
+                    ComplexityId = 1
+                },
+                new Recipe
+                {
+                    Id = 3,
+                    Name = "Pantry Chicken Casserole",
+                    Content = "This is random content",
+                    Duration = "40",
+                    Photo = "https://images.media-allrecipes.com/userphotos/560x315/7847380.jpg",
+                    CreatedAt = new DateTime(),
+                    CategoryId = 1,
+                    ComplexityId = 1
+                }
+            );
+
         }
     }
 }

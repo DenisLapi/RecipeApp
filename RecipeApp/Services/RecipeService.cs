@@ -103,5 +103,10 @@ namespace RecipeApp.Services
         {
             return _repoWrapper.Recipe.FindAll().ToList();
         }
+
+        public List<Recipe> GetSome(int amount)
+        {
+            return _repoWrapper.Recipe.FindAll().Take(amount).ToList();
+        }
     }
 }

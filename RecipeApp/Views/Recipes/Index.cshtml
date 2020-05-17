@@ -17,12 +17,12 @@
     @foreach (var item in Model)
     {
         <div class="col-lg-4 col-md-6">
-            <div class="card rounded mb-3 w-100" style="width: 18rem;">
+            <div class="card shadow-sm rounded mb-3 w-100" style="width: 18rem;">
                 <div class="card-background-image-wrapper" style="background-image: url('@item.Photo')"></div>
                 <div class="card-body">
                     <h5 class="card-title">@item.Name</h5>
                     <p class="card-text">@item.Content</p>
-                    <a class="btn btn-warning" asp-action="Details" asp-route-id="@item.Id">Details</a>
+                    <a class="btn btn-primary" asp-action="Details" asp-route-id="@item.Id">Details</a>
                     @if (this.User.IsInRole("Administrator"))
                     {
                         <a class="btn btn-info" asp-action="Edit" asp-route-id="@item.Id">Edit</a>

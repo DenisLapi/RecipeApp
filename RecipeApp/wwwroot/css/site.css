@@ -123,3 +123,23 @@ body {
     font-size: 15px;
     color: #515561;
 }
+
+.c-slider .carousel-item {
+    max-height: 500px;
+}
+
+.c-slider .carousel-item img {
+    position: absolute;
+    top: -50%;
+    height: 100%;
+}
+
+.c-slider .carousel-caption {
+    background: #fff;
+    padding: 20px;
+    color: #2d2d2d;
+    border-left: 7px solid var(--orange);
+    text-align: left;
+    margin-bottom: 50px;
+    border-radius: .2rem;
+}
