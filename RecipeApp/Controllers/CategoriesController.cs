@@ -29,7 +29,7 @@ namespace RecipeApp.Controllers
         }
 
         // GET: Categories/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public IActionResult Details(int? id)
         {
             var category = _categoryService.Details(id);
 

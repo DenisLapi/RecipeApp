@@ -52,8 +52,8 @@ namespace RecipeApp.Controllers
         {
             RecipeCreateViewModel recipeCreateViewModel = new RecipeCreateViewModel
             {
-                categories = _categoryService.GetAll(),
-                complexities = _complexityService.GetAll()
+                Categories = _categoryService.GetAll(),
+                Complexities = _complexityService.GetAll()
             };
 
             return View(recipeCreateViewModel);
@@ -87,9 +87,9 @@ namespace RecipeApp.Controllers
 
             RecipeCreateViewModel recipeCreateViewModel = new RecipeCreateViewModel
             {
-                categories = _categoryService.GetAll(),
-                complexities = _complexityService.GetAll(),
-                recipe = _recipeService.GetEdit(id)
+                Categories = _categoryService.GetAll(),
+                Complexities = _complexityService.GetAll(),
+                Recipe = _recipeService.GetEdit(id)
             };
 
             if (recipeCreateViewModel == null)

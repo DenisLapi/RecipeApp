@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using RecipeApp.Models;
+using RecipeApp.ViewModels;
 
 namespace RecipeApp.Controllers
 {
@@ -14,18 +15,24 @@ namespace RecipeApp.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IRecipeService _recipeService;
+        private readonly IContactMessageService _contactMessage;
         private const int MAX_RECIPES = 3;
 
-        public HomeController(ILogger<HomeController> logger, IRecipeService recipeService)
+        public HomeController(ILogger<HomeController> logger, IRecipeService recipeService, IContactMessageService contactMessage)
         {
             _logger = logger;
             _recipeService = recipeService;
+            _contactMessage = contactMessage;
         }
 
         public IActionResult Index()
         {
-            ViewBag.recipes = _recipeService.GetSome(MAX_RECIPES);
-            return View();
+            HomeIndexViewModel homeIndexViewModel = new HomeIndexViewModel
+            {
+                Recipes = _recipeService.GetSome(MAX_RECIPES)
+            };
+
+            return View(homeIndexViewModel);
         }
         
         public IActionResult Privacy()
@@ -37,6 +44,14 @@ namespace RecipeApp.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult CreateContactMessage(ContactMessage contactMessage)
+        {
+            _contactMessage.Add(contactMessage);
+            return RedirectToAction(nameof(Index));
         }
     }
 }

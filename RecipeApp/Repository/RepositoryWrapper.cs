@@ -8,11 +8,10 @@ namespace RecipeApp.Repository
 {
     public class RepositoryWrapper : IRepositoryWrapper
     {
-        private RecipeDbContext _repoContext;
+        private readonly RecipeDbContext _repoContext;
         private ICategoryRepository _category;
         private IComplexityRepository _complexity;
         private IContactMessageRepository _contactMessage;
-        private ILikeRepository _like;
         private IRecipeRepository _recipe;
         private IUserRepository _user;
 
@@ -57,19 +56,6 @@ namespace RecipeApp.Repository
                 }
 
                 return _contactMessage;
-            }
-        }
-
-        public ILikeRepository Like
-        {
-            get
-            {
-                if (_like == null)
-                {
-                    _like = new LikeRepository(_repoContext);
-                }
-
-                return _like;
             }
         }
 

@@ -1,17 +1,19 @@
-﻿@{
+﻿@model RecipeApp.ViewModels.HomeIndexViewModel
+@{
     ViewData["Title"] = "Home Page";
 }
 
 @* Promo slider *@
 <partial name="_PromoSlider" />
 
+@* Top 3 recipes *@
 <div class="text-center my-4">
     <h2>Recipes</h2>
     <p class="text-secondary">The newest recipes available on our website</p>
 </div>
 
 <div class="row mt-4">
-    @foreach (var item in ViewBag.recipes)
+    @foreach (var item in Model.Recipes)
     {
         <div class="col-lg-4 col-md-6">
             <div class="card shadow-sm rounded mb-3 w-100" style="width: 18rem;">
@@ -32,5 +34,30 @@
 </div>
 
 <div class="text-center my-4">
-    <a class="btn btn-primary" asp-controller="Recipes" asp-action="Index">Browse recipes</a>
+    <a class="btn btn-outline-primary" asp-controller="Recipes" asp-action="Index">Browse recipes</a>
+</div>
+
+@* Contact Form *@
+<div class="row my-5 bg-light py-5 rounded">
+    <div class="col-sm-6 offset-3">
+        <div class="text-center mb-3">
+            <h2>Contact us</h2>
+            <p class="text-secondary">Get in touch with us. Send us message</p>
+        </div>
+        <form asp-action="CreateContactMessage">
+            <div class="form-group">
+                <label for="fullName">Full name</label>
+                <input asp-for="ContactMessage.FullName" type="text" class="form-control" id="fullName" placeholder="Enter full name" required>
+            </div>
+            <div class="form-group">
+                <label for="emailAddress">Email address</label>
+                <input asp-for="ContactMessage.Email" type="email" class="form-control" id="emailAddress" placeholder="Enter email address" required>
+            </div>
+            <div class="form-group">
+                <label for="messageInput">Message</label>
+                <textarea asp-for="ContactMessage.Message" class="form-control" id="messageInput" rows="3" placeholder="Enter message" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Send message</button>
+        </form>
+    </div>
 </div>

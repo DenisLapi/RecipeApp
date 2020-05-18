@@ -9,8 +9,8 @@ namespace RecipeApp.ViewModels
 {
     public class RecipeCreateViewModel
     {
-        public List<Category> categories { get; set; }
-        public List<Complexity> complexities { get; set; }
-        public Recipe recipe { get; set; }
+        public List<Category> Categories { get; set; }
+        public List<Complexity> Complexities { get; set; }
+        public Recipe Recipe { get; set; }
     }
 }

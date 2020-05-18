@@ -12,44 +12,44 @@
     <div class="col-md-4">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="@Model.recipe.Id" />
+            <input type="hidden" asp-for="@Model.Recipe.Id" />
             <div class="form-group">
-                <label asp-for="@Model.recipe.Name" class="control-label"></label>
-                <input asp-for="@Model.recipe.Name" class="form-control" />
-                <span asp-validation-for="@Model.recipe.Name" class="text-danger"></span>
+                <label asp-for="@Model.Recipe.Name" class="control-label"></label>
+                <input asp-for="@Model.Recipe.Name" class="form-control" />
+                <span asp-validation-for="@Model.Recipe.Name" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="@Model.recipe.Content" class="control-label"></label>
-                <input asp-for="@Model.recipe.Content" class="form-control" />
-                <span asp-validation-for="@Model.recipe.Content" class="text-danger"></span>
+                <label asp-for="@Model.Recipe.Content" class="control-label"></label>
+                <input asp-for="@Model.Recipe.Content" class="form-control" />
+                <span asp-validation-for="@Model.Recipe.Content" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="@Model.recipe.Duration" class="control-label"></label>
-                <input asp-for="@Model.recipe.Duration" class="form-control" />
-                <span asp-validation-for="@Model.recipe.Duration" class="text-danger"></span>
+                <label asp-for="@Model.Recipe.Duration" class="control-label"></label>
+                <input asp-for="@Model.Recipe.Duration" class="form-control" />
+                <span asp-validation-for="@Model.Recipe.Duration" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="@Model.recipe.Photo" class="control-label"></label>
-                <input asp-for="@Model.recipe.Photo" class="form-control" />
-                <span asp-validation-for="@Model.recipe.Photo" class="text-danger"></span>
+                <label asp-for="@Model.Recipe.Photo" class="control-label"></label>
+                <input asp-for="@Model.Recipe.Photo" class="form-control" />
+                <span asp-validation-for="@Model.Recipe.Photo" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="@Model.recipe.CreatedAt" class="control-label"></label>
-                <input asp-for="@Model.recipe.CreatedAt" class="form-control" />
-                <span asp-validation-for="@Model.recipe.CreatedAt" class="text-danger"></span>
+                <label asp-for="@Model.Recipe.CreatedAt" class="control-label"></label>
+                <input asp-for="@Model.Recipe.CreatedAt" class="form-control" />
+                <span asp-validation-for="@Model.Recipe.CreatedAt" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label class="control-label">Category</label>
                 <select name="category" class="form-control" required>
-                    @for (var i = 0; i < @Model.categories.Count; i++)
+                    @for (var i = 0; i < @Model.Categories.Count; i++)
                     {
-                        @if (@Model.categories[i].Id == @Model.recipe.CategoryId)
+                        @if (@Model.Categories[i].Id == @Model.Recipe.CategoryId)
                         {
-                            <option value="@Model.categories[i].Id" selected>@Model.categories[i].Name</option>
+                            <option value="@Model.Categories[i].Id" selected>@Model.Categories[i].Name</option>
                         }
                         else
                         {
-                            <option value="@Model.categories[i].Id">@Model.categories[i].Name</option>
+                            <option value="@Model.Categories[i].Id">@Model.Categories[i].Name</option>
                         }
                     }
                 </select>
@@ -57,15 +57,15 @@
             <div class="form-group">
                 <label class="control-label">Complexity</label>
                 <select name="complexity" class="form-control" required>
-                    @for (var i = 0; i < @Model.complexities.Count; i++)
+                    @for (var i = 0; i < @Model.Complexities.Count; i++)
                     {
-                        @if (@Model.complexities[i].Id == @Model.recipe.ComplexityId)
+                        @if (@Model.Complexities[i].Id == @Model.Recipe.ComplexityId)
                         {
-                            <option value="@Model.complexities[i].Id" selected>@Model.complexities[i].Name</option>
+                            <option value="@Model.Complexities[i].Id" selected>@Model.Complexities[i].Name</option>
                         }
                         else
                         {
-                            <option value="@Model.complexities[i].Id">@Model.complexities[i].Name</option>
+                            <option value="@Model.Complexities[i].Id">@Model.Complexities[i].Name</option>
                         }
                     }
                 </select>

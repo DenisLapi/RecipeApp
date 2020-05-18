@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RecipeApp.Models;
 
 namespace RecipeApp.Migrations
 {
     [DbContext(typeof(RecipeDbContext))]
-    partial class RecipeDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200518174814_AddedApplicationUserInContext")]
+    partial class AddedApplicationUserInContext
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -49,14 +51,14 @@ namespace RecipeApp.Migrations
                         new
                         {
                             Id = "1",
-                            ConcurrencyStamp = "1da15329-749d-4355-80e0-e31405307085",
+                            ConcurrencyStamp = "3b11693c-e277-4369-961b-30775137875e",
                             Name = "User",
                             NormalizedName = "User"
                         },
                         new
                         {
                             Id = "2",
-                            ConcurrencyStamp = "5f376188-2128-4261-af64-72836d06fc20",
+                            ConcurrencyStamp = "05b8e520-ebe9-43af-9696-8c68e4052862",
                             Name = "Administrator",
                             NormalizedName = "Admin"
                         });
@@ -301,7 +303,7 @@ namespace RecipeApp.Migrations
                     b.Property<string>("FullName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Message")
+                    b.Property<string>("Messsage")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("Read")

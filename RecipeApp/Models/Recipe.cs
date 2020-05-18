@@ -17,6 +17,5 @@ namespace RecipeApp.Models
         public Category Category { get; set; }
         public int ComplexityId { get; set; }
         public Complexity Complexity { get; set; }
-        public ICollection <Like> Likes { get; set; }
     }
 }
