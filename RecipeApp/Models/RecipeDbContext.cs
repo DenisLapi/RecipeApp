@@ -16,7 +16,7 @@ namespace RecipeApp.Models
 
         }
         public DbSet <Recipe> Recipes { get; set; }
-        public DbSet <Category> Categories { get; set; }
+        public DbSet <Category> Categorie { get; set; }
         public DbSet <Complexity> Complexities { get; set; }
         public DbSet <ContactMessage> ContactMessages { get; set; }
 
