@@ -4,9 +4,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace RecipeApp.Repository
+namespace RecipeApp.Services.User
 {
-    public interface ILikeRepository : IRepositoryBase<Like>
+    public interface IUserService
     {
+        public void SetPhoto(ApplicationUser user, string photo);
     }
 }

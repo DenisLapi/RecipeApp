@@ -1,4 +1,4 @@
-﻿@model RecipeApp.Models.Recipe
+﻿@model RecipeApp.ViewModels.RecipeCreateViewModel
 
 @{
     ViewData["Title"] = "Edit";
@@ -12,26 +12,63 @@
     <div class="col-md-4">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
+            <input type="hidden" asp-for="@Model.Recipe.Id" />
             <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
+                <label asp-for="@Model.Recipe.Name" class="control-label"></label>
+                <input asp-for="@Model.Recipe.Name" class="form-control" />
+                <span asp-validation-for="@Model.Recipe.Name" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Content" class="control-label"></label>
-                <input asp-for="Content" class="form-control" />
-                <span asp-validation-for="Content" class="text-danger"></span>
+                <label asp-for="@Model.Recipe.Content" class="control-label"></label>
+                <input asp-for="@Model.Recipe.Content" class="form-control" />
+                <span asp-validation-for="@Model.Recipe.Content" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Duration" class="control-label"></label>
-                <input asp-for="Duration" class="form-control" />
-                <span asp-validation-for="Duration" class="text-danger"></span>
+                <label asp-for="@Model.Recipe.Duration" class="control-label"></label>
+                <input asp-for="@Model.Recipe.Duration" class="form-control" />
+                <span asp-validation-for="@Model.Recipe.Duration" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="CreatedAt" class="control-label"></label>
-                <input asp-for="CreatedAt" class="form-control" />
-                <span asp-validation-for="CreatedAt" class="text-danger"></span>
+                <label asp-for="@Model.Recipe.Photo" class="control-label"></label>
+                <input asp-for="@Model.Recipe.Photo" class="form-control" />
+                <span asp-validation-for="@Model.Recipe.Photo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.Recipe.CreatedAt" class="control-label"></label>
+                <input asp-for="@Model.Recipe.CreatedAt" class="form-control" />
+                <span asp-validation-for="@Model.Recipe.CreatedAt" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Category</label>
+                <select name="category" class="form-control" required>
+                    @for (var i = 0; i < @Model.Categories.Count; i++)
+                    {
+                        @if (@Model.Categories[i].Id == @Model.Recipe.CategoryId)
+                        {
+                            <option value="@Model.Categories[i].Id" selected>@Model.Categories[i].Name</option>
+                        }
+                        else
+                        {
+                            <option value="@Model.Categories[i].Id">@Model.Categories[i].Name</option>
+                        }
+                    }
+                </select>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Complexity</label>
+                <select name="complexity" class="form-control" required>
+                    @for (var i = 0; i < @Model.Complexities.Count; i++)
+                    {
+                        @if (@Model.Complexities[i].Id == @Model.Recipe.ComplexityId)
+                        {
+                            <option value="@Model.Complexities[i].Id" selected>@Model.Complexities[i].Name</option>
+                        }
+                        else
+                        {
+                            <option value="@Model.Complexities[i].Id">@Model.Complexities[i].Name</option>
+                        }
+                    }
+                </select>
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
@@ -41,7 +78,7 @@
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a class="btn btn-outline-primary" asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {

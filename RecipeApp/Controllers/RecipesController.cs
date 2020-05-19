@@ -2,38 +2,43 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using RecipeApp.Models;
+using RecipeApp.ViewModels;
 
 namespace RecipeApp.Controllers
 {
+    [Authorize(Roles = "Administrator")]
     public class RecipesController : Controller
     {
-        private readonly RecipeDbContext _context;
+        private readonly IRecipeService _recipeService;
+        private readonly ICategoryService _categoryService;
+        private readonly IComplexityService _complexityService;
 
-        public RecipesController(RecipeDbContext context)
+        public RecipesController(IRecipeService recipeService, ICategoryService categoryService, IComplexityService complexityService)
         {
-            _context = context;
+            _recipeService = recipeService;
+            _categoryService = categoryService;
+            _complexityService = complexityService;
         }
 
         // GET: Recipes
+        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Recipes.ToListAsync());
+            List<Recipe> _recipes = _recipeService.GetAll();
+            return View(_recipes);
         }
 
         // GET: Recipes/Details/5
+        [AllowAnonymous]
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            var recipe = _recipeService.Details(id);
 
-            var recipe = await _context.Recipes
-                .FirstOrDefaultAsync(m => m.Id == id);
             if (recipe == null)
             {
                 return NotFound();
@@ -45,7 +50,13 @@ namespace RecipeApp.Controllers
         // GET: Recipes/Create
         public IActionResult Create()
         {
-            return View();
+            RecipeCreateViewModel recipeCreateViewModel = new RecipeCreateViewModel
+            {
+                Categories = _categoryService.GetAll(),
+                Complexities = _complexityService.GetAll()
+            };
+
+            return View(recipeCreateViewModel);
         }
 
         // POST: Recipes/Create
@@ -53,31 +64,40 @@ namespace RecipeApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Content,Duration,CreatedAt")] Recipe recipe)
+        public async Task<IActionResult> Create(Recipe recipe, string category, string complexity)
         {
+            bool isCreated = false;
+
             if (ModelState.IsValid)
             {
-                _context.Add(recipe);
-                await _context.SaveChangesAsync();
+                isCreated = _recipeService.Add(recipe, category, complexity);
+            }
+
+            if (isCreated)
+            {
                 return RedirectToAction(nameof(Index));
             }
-            return View(recipe);
+
+            return View();
         }
 
         // GET: Recipes/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null)
+
+            RecipeCreateViewModel recipeCreateViewModel = new RecipeCreateViewModel
+            {
+                Categories = _categoryService.GetAll(),
+                Complexities = _complexityService.GetAll(),
+                Recipe = _recipeService.GetEdit(id)
+            };
+
+            if (recipeCreateViewModel == null)
             {
                 return NotFound();
             }
 
-            var recipe = await _context.Recipes.FindAsync(id);
-            if (recipe == null)
-            {
-                return NotFound();
-            }
-            return View(recipe);
+            return View(recipeCreateViewModel);
         }
 
         // POST: Recipes/Edit/5
@@ -85,33 +105,24 @@ namespace RecipeApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Content,Duration,CreatedAt")] Recipe recipe)
+        public async Task<IActionResult> Edit(Recipe recipe, string category, string complexity)
         {
-            if (id != recipe.Id)
-            {
-                return NotFound();
-            }
-
             if (ModelState.IsValid)
             {
-                try
+                var categoryId = Int32.Parse(category);
+                var complexityId = Int32.Parse(complexity);
+
+                recipe.CategoryId = categoryId;
+                recipe.ComplexityId = complexityId;
+
+                bool isEdited = _recipeService.Edit(recipe);
+
+                if (isEdited)
                 {
-                    _context.Update(recipe);
-                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
                 }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!RecipeExists(recipe.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
             }
+
             return View(recipe);
         }
 
@@ -123,8 +134,8 @@ namespace RecipeApp.Controllers
                 return NotFound();
             }
 
-            var recipe = await _context.Recipes
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var recipe = _recipeService.GetDelete(id);
+
             if (recipe == null)
             {
                 return NotFound();
@@ -138,15 +149,8 @@ namespace RecipeApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var recipe = await _context.Recipes.FindAsync(id);
-            _context.Recipes.Remove(recipe);
-            await _context.SaveChangesAsync();
+            _recipeService.Delete(id);
             return RedirectToAction(nameof(Index));
-        }
-
-        private bool RecipeExists(int id)
-        {
-            return _context.Recipes.Any(e => e.Id == id);
         }
     }
 }

@@ -13,11 +13,11 @@ namespace RecipeApp
 
         public ContactMessage Details(int? id);
 
-        public bool Add(ContactMessage complexity);
+        public bool Add(ContactMessage contactMessage);
 
         public ContactMessage GetEdit(int? id);
 
-        public bool Edit(ContactMessage complexity);
+        public bool Edit(ContactMessage contactMessage);
 
         public ContactMessage GetDelete(int? id);
 

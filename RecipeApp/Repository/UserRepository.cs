@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace RecipeApp.Repository
 {
-    public class LikeRepository : RepositoryBase<Like>, ILikeRepository
+    public class UserRepository : RepositoryBase<ApplicationUser>, IUserRepository
     {
-        public LikeRepository(RecipeDbContext repositoryContext) : base(repositoryContext)
+        public UserRepository(RecipeDbContext repositoryContext) : base(repositoryContext)
         {
         }
     }

@@ -6,13 +6,9 @@
 
   <ItemGroup>
     <Compile Remove="Helper\**" />
-    <Compile Remove="Services\NewFolder\**" />
     <Content Remove="Helper\**" />
-    <Content Remove="Services\NewFolder\**" />
     <EmbeddedResource Remove="Helper\**" />
-    <EmbeddedResource Remove="Services\NewFolder\**" />
     <None Remove="Helper\**" />
-    <None Remove="Services\NewFolder\**" />
   </ItemGroup>
 
   <ItemGroup>

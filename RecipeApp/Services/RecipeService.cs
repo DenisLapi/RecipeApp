@@ -12,14 +12,22 @@ namespace RecipeApp.Services
     public class RecipeService : IRecipeService
     {
         private readonly IRepositoryWrapper _repoWrapper;
+        private readonly ICategoryService _categoryService;
+        private readonly IComplexityService _complexityService;
 
-        public RecipeService(IRepositoryWrapper repoWrapper)
+        public RecipeService(IRepositoryWrapper repoWrapper, ICategoryService categoryService, IComplexityService complexityService)
         {
             _repoWrapper = repoWrapper;
+            _categoryService = categoryService;
+            _complexityService = complexityService;
         }
 
-        public bool Add(Recipe recipe)
+        public bool Add(Recipe recipe, string category, string complexity)
         {
+            int complexityID = Int32.Parse(complexity);
+            int categoryID = Int32.Parse(category);
+            recipe.ComplexityId = complexityID;
+            recipe.CategoryId = categoryID;
             _repoWrapper.Recipe.Create(recipe);
             _repoWrapper.Save();
             return true;
@@ -32,9 +40,10 @@ namespace RecipeApp.Services
                 return null;
             }
 
-            var _recipe = (Recipe) _repoWrapper.Recipe.FindByCondition(m => m.Id == id).ToList()[0];
+            var _recipe = (Recipe) _repoWrapper.Recipe.FindByCondition(m => m.Id == id).Include(x => x.Category).Include(x => x.Complexity).ToList()[0];
+
             return _recipe;
-        }
+        } 
 
         public Recipe GetEdit(int? id)
         {
@@ -71,7 +80,7 @@ namespace RecipeApp.Services
 
         public Recipe GetDelete(int? id)
         {
-            return (Recipe) _repoWrapper.Recipe.FindByCondition(m => m.Id == id).ToList()[0];
+            return (Recipe) _repoWrapper.Recipe.FindByCondition(m => m.Id == id).Include(x => x.Category).Include(x => x.Complexity).ToList()[0];
         }
 
         public bool Delete(int id)
@@ -93,6 +102,11 @@ namespace RecipeApp.Services
         public List<Recipe> GetAll()
         {
             return _repoWrapper.Recipe.FindAll().ToList();
+        }
+
+        public List<Recipe> GetSome(int amount)
+        {
+            return _repoWrapper.Recipe.FindAll().Take(amount).ToList();
         }
     }
 }

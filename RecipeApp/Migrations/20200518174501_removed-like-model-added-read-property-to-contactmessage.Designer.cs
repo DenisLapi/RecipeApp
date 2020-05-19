@@ -10,8 +10,8 @@ using RecipeApp.Models;
 namespace RecipeApp.Migrations
 {
     [DbContext(typeof(RecipeDbContext))]
-    [Migration("20200509171905_AuthInitMigration")]
-    partial class AuthInitMigration
+    [Migration("20200518174501_removed-like-model-added-read-property-to-contactmessage")]
+    partial class removedlikemodeladdedreadpropertytocontactmessage
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -46,6 +46,22 @@ namespace RecipeApp.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "1",
+                            ConcurrencyStamp = "7030c4ca-d401-428e-ac0e-729a0f38ba39",
+                            Name = "User",
+                            NormalizedName = "User"
+                        },
+                        new
+                        {
+                            Id = "2",
+                            ConcurrencyStamp = "7e664dd8-48fe-4df5-937e-4f647b727125",
+                            Name = "Administrator",
+                            NormalizedName = "Admin"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -230,6 +246,18 @@ namespace RecipeApp.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Categories");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Food"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Lunch"
+                        });
                 });
 
             modelBuilder.Entity("RecipeApp.Models.Complexity", b =>
@@ -245,6 +273,18 @@ namespace RecipeApp.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Complexities");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Easy"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Hard"
+                        });
                 });
 
             modelBuilder.Entity("RecipeApp.Models.ContactMessage", b =>
@@ -263,31 +303,12 @@ namespace RecipeApp.Migrations
                     b.Property<string>("Messsage")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("Read")
+                        .HasColumnType("bit");
+
                     b.HasKey("Id");
 
                     b.ToTable("ContactMessages");
-                });
-
-            modelBuilder.Entity("RecipeApp.Models.Like", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int?>("RecipeId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("UserId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("RecipeId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Likes");
                 });
 
             modelBuilder.Entity("RecipeApp.Models.Recipe", b =>
@@ -297,10 +318,10 @@ namespace RecipeApp.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("CategoryId")
+                    b.Property<int>("CategoryId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("ComplexityId")
+                    b.Property<int>("ComplexityId")
                         .HasColumnType("int");
 
                     b.Property<string>("Content")
@@ -315,8 +336,8 @@ namespace RecipeApp.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("UserId")
-                        .HasColumnType("int");
+                    b.Property<string>("Photo")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -324,30 +345,42 @@ namespace RecipeApp.Migrations
 
                     b.HasIndex("ComplexityId");
 
-                    b.HasIndex("UserId");
-
                     b.ToTable("Recipes");
-                });
 
-            modelBuilder.Entity("RecipeApp.Models.User", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Password")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("User");
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CategoryId = 1,
+                            ComplexityId = 1,
+                            Content = "This is random content",
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Duration = "50",
+                            Name = "Curry Salmon with Mango",
+                            Photo = "https://images.media-allrecipes.com/userphotos/560x315/3286508.jpg"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CategoryId = 1,
+                            ComplexityId = 1,
+                            Content = "This is random content",
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Duration = "30",
+                            Name = "World's Best Lasagna",
+                            Photo = "https://imagesvc.meredithcorp.io/v3/mm/image?url=https%3A%2F%2Fimages.media-allrecipes.com%2Fuserphotos%2F3359675.jpg"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CategoryId = 1,
+                            ComplexityId = 1,
+                            Content = "This is random content",
+                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Duration = "40",
+                            Name = "Pantry Chicken Casserole",
+                            Photo = "https://images.media-allrecipes.com/userphotos/560x315/7847380.jpg"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -401,30 +434,19 @@ namespace RecipeApp.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("RecipeApp.Models.Like", b =>
-                {
-                    b.HasOne("RecipeApp.Models.Recipe", "Recipe")
-                        .WithMany("Likes")
-                        .HasForeignKey("RecipeId");
-
-                    b.HasOne("RecipeApp.Models.User", "User")
-                        .WithMany("Likes")
-                        .HasForeignKey("UserId");
-                });
-
             modelBuilder.Entity("RecipeApp.Models.Recipe", b =>
                 {
                     b.HasOne("RecipeApp.Models.Category", "Category")
                         .WithMany("Recipes")
-                        .HasForeignKey("CategoryId");
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("RecipeApp.Models.Complexity", "Complexity")
                         .WithMany("Recipes")
-                        .HasForeignKey("ComplexityId");
-
-                    b.HasOne("RecipeApp.Models.User", "User")
-                        .WithMany("Recipes")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("ComplexityId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

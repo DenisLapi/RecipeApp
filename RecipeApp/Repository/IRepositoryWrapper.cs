@@ -10,8 +10,9 @@ namespace RecipeApp.Repository
         ICategoryRepository Category { get; }
         IComplexityRepository Complexity { get; }
         IContactMessageRepository ContactMessage { get; }
-        ILikeRepository Like { get; }
         IRecipeRepository Recipe { get; }
+        IUserRepository User { get; }
+
         void Save();
     }
 }

@@ -10,13 +10,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using RecipeApp.Models;
-<<<<<<< HEAD
-=======
 using RecipeApp.Repository;
 using RecipeApp.Services;
 using RecipeApp.Services.Login;
 using RecipeApp.Services.Register;
->>>>>>> feature/add-authentication-basics
+using RecipeApp.Services.User;
 
 namespace RecipeApp
 {
@@ -36,19 +34,15 @@ namespace RecipeApp
             services.AddTransient<ICategoryService, CategoryService>();
             services.AddTransient<IComplexityService, ComplexityService>();
             services.AddTransient<IContactMessageService, ContactMessageService>();
-            services.AddTransient<ILikeService, LikeService>();
             services.AddTransient<IRecipeService, RecipeService>();
             services.AddTransient<ILoginService, LoginService>();
             services.AddTransient<IRegisterService, RegisterService>();
+            services.AddTransient<IUserService, UserService>();
 
             services.AddControllersWithViews();
-<<<<<<< HEAD
-            var connection = @"Server=(localdb)\mssqllocaldb;Database=RepiceAppDB;Trusted_Connection=True;ConnectRetryCount=0";
-            services.AddDbContext<RecipeDbContextController>(options => options.UseSqlServer(connection));
-=======
             services.AddRazorPages();
 
-            services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<RecipeDbContext>();
+            services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<RecipeDbContext>();
 
             services.Configure<IdentityOptions>(options =>
             {
@@ -76,8 +70,6 @@ namespace RecipeApp
             });
 
             var connection = @"Server=(localdb)\mssqllocaldb;Database=RepiceAppDB;Trusted_Connection=True;ConnectRetryCount=0";
-            services.AddDbContext<RecipeDbContext>(options => options.UseSqlServer(connection));
->>>>>>> feature/add-authentication-basics
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

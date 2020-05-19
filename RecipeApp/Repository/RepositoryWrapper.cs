@@ -8,12 +8,12 @@ namespace RecipeApp.Repository
 {
     public class RepositoryWrapper : IRepositoryWrapper
     {
-        private RecipeDbContext _repoContext;
+        private readonly RecipeDbContext _repoContext;
         private ICategoryRepository _category;
         private IComplexityRepository _complexity;
         private IContactMessageRepository _contactMessage;
-        private ILikeRepository _like;
         private IRecipeRepository _recipe;
+        private IUserRepository _user;
 
         public RepositoryWrapper(RecipeDbContext repositoryContext)
         {
@@ -59,19 +59,6 @@ namespace RecipeApp.Repository
             }
         }
 
-        public ILikeRepository Like
-        {
-            get
-            {
-                if (_like == null)
-                {
-                    _like = new LikeRepository(_repoContext);
-                }
-
-                return _like;
-            }
-        }
-
         public IRecipeRepository Recipe
         {
             get
@@ -82,6 +69,19 @@ namespace RecipeApp.Repository
                 }
 
                 return _recipe;
+            }
+        }
+
+        public IUserRepository User
+        {
+            get
+            {
+                if (_user == null)
+                {
+                    _user = new UserRepository(_repoContext);
+                }
+
+                return _user;
             }
         }
 

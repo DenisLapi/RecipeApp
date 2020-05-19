@@ -69,3 +69,94 @@ body {
   white-space: nowrap;
   line-height: 60px; /* Vertically center the text there */
 }
+
+/* Custom CSS */
+
+.btn-primary {
+    color: #fff !important;
+    background-color: #ffc107;
+    border-color: #ffc107;
+}
+
+.btn-primary:hover {
+    color: #fff !important;
+    background-color: #ffd146;
+    border-color: #ffc107;
+}
+
+.btn-outline-primary {
+    border-color: #ffc107;
+    color: #ffc107;
+}
+
+.btn-outline-primary:hover {
+    color: #fff !important;
+    background-color: #ffd146;
+    border-color: #ffc107;
+}
+
+.background--cover {
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.card-background-image-wrapper {
+    height: 250px;
+    width: 100%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.avatar {
+    border-radius: 50%;
+    overflow: hidden;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.avatar--small {
+    height: 30px;
+    width: 30px;
+}
+
+.page__cover-image {
+    height: 400px;
+    width: 100%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.recipe-details .bx {
+    color: #bdc4ca;
+    font-size: 25px;
+    margin-right: 5px;
+}
+
+.recipe-details .text {
+    font-size: 15px;
+    color: #515561;
+}
+
+.c-slider .carousel-item {
+    max-height: 500px;
+}
+
+.c-slider .carousel-item img {
+    position: absolute;
+    top: -50%;
+    height: 100%;
+}
+
+.c-slider .carousel-caption {
+    background: #fff;
+    padding: 20px;
+    color: #2d2d2d;
+    border-left: 7px solid var(--orange);
+    text-align: left;
+    margin-bottom: 50px;
+    border-radius: .2rem;
+}
